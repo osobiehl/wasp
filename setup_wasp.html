@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the Value Tangle</a></li><li class="chapter-item expanded "><a href="tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain. Core contacts</a></li><li class="chapter-item expanded "><a href="tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running Rust smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contract. Sending a request</a></li><li class="chapter-item expanded "><a href="tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Calling a view from the Solo environment</a></li><li class="chapter-item expanded "><a href="tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Sending and receiving tokens with the address</a></li><li class="chapter-item expanded "><a href="tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending iotas from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="setup_wasp.html" class="active"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="setup_wasp.html" class="active"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -150,19 +150,19 @@
                         <h1 id="setup-a-private-iscp-cluster"><a class="header" href="#setup-a-private-iscp-cluster">Setup a private ISCP Cluster</a></h1>
 <h1 id="wasp-cluster"><a class="header" href="#wasp-cluster">wasp-cluster</a></h1>
 <p><code>wasp-cluster</code> is a tool that allows to easily run a cluster of Wasp nodes
-along with a Goshimmer node (needed for Wasp), all in a single host, to
-experiment with smart contracts in a controlled environment.</p>
-<p>Note: <code>wasp-cluster</code> is intended for testing purposes, and is <em>not</em> the
-recommended way to run a cluster in a production environment.</p>
+in a single host, to experiment with smart contracts in a controlled environment.</p>
+<p><strong>Note:</strong> <code>wasp-cluster</code> is intended for <strong>testing purposes</strong>, and is <em>not</em>
+suitable for running a cluster in a production environment.</p>
 <h2 id="before"><a class="header" href="#before">Before</a></h2>
-<p>Make sure you have all needed binaries compiled and installed in the system path:</p>
+<p>Make sure you have all needed binaries compiled and installed in the system
+path:</p>
 <ul>
-<li><code>goshimmer</code> (Goshimmer server with the <code>waspconn</code> plugin)</li>
 <li><code>wasp</code> (Wasp server)</li>
 <li><code>wasp-cli</code> (CLI client for the Wasp node)</li>
 <li><code>wasp-cluster</code> (this tool)</li>
 </ul>
-<p>You can find instructions in the <a href="../../../readme.html#Prerequisites">main README file</a>.</p>
+<p>You can find instructions in
+the <a href="../../../readme.html#Prerequisites">main README file</a>.</p>
 <h2 id="initialize-the-cluster-configuration"><a class="header" href="#initialize-the-cluster-configuration">Initialize the cluster configuration</a></h2>
 <pre><code>wasp-cluster init my-cluster
 </code></pre>
@@ -170,9 +170,6 @@ recommended way to run a cluster in a production environment.</p>
 configuration file (<code>cluster.json</code>) and one subdirectory for each node.</p>
 <pre><code>my-cluster/
 ├── cluster.json
-├── goshimmer
-│   ├── config.json
-│   └── snapshot.bin
 ├── wasp0
 │   └── config.json
 ├── wasp1
@@ -184,8 +181,8 @@ configuration file (<code>cluster.json</code>) and one subdirectory for each nod
 </code></pre>
 <p>By default the cluster contains 4 Wasp nodes. You can change this with the
 <code>-n</code> parameter. E.g.: <code>wasp-cluster init my-cluster -n 2</code>.</p>
-<p>If you need to change the default configuration of the nodes, you can do so
-now, by editing the <code>config.json</code> files.</p>
+<p>If you need to change the default configuration of the nodes, you can do so now,
+by editing the <code>config.json</code> files.</p>
 <p>Note: by default <code>wasp-cluster</code> configures all nodes to store the database in
 main memory: all data will be lost when the cluster is stopped (remember that
 this tool is used primarily for testing). If you need a persistent database,
@@ -197,14 +194,13 @@ wasp-cluster start
 <p>(Alternatively: <code>wasp-cluster start my-cluster</code>.)</p>
 <p>When done using the cluster, press <code>Ctrl-C</code> to stop it.</p>
 <h2 id="connecting-to-an-existing-goshimmer-network"><a class="header" href="#connecting-to-an-existing-goshimmer-network">Connecting to an existing Goshimmer network</a></h2>
-<p>By default, the cluster includes a single Goshimmer node configured in such a
-way that the ledger can be operated without the need for consensus. This is
-good for quick tests, but is far from how Goshimmer works in a production
+<p>By default, <code>wasp-cluster</code> provides a mock Goshimmer node to operate a
+simulated ledger without the need for consensus. This is good
+for quick tests, but is far from how the ledger works in a production
 environment.</p>
 <p>To connect the Wasp cluster to a more realistic environment (e.g. to be able to
 persist the ledger), you can use the <code>docker-network</code> tool available
-in the Goshimmer repository (<code>master+wasp</code> branch) in order to start a cluster of
-Goshimmer nodes.</p>
+in the Goshimmer repository in order to start a cluster of Goshimmer nodes.</p>
 <p>Example steps:</p>
 <ol>
 <li>Start a Goshimmer network of 2 nodes:</li>
@@ -213,7 +209,8 @@ Goshimmer nodes.</p>
 ./run.sh 2 0
 </code></pre>
 <ol start="2">
-<li>In another console, initialize a cluster of 4 Wasp nodes (<code>-n 4</code>) with no Goshimmer node (<code>-g</code>).</li>
+<li>In another console, initialize a cluster of 4 Wasp nodes (<code>-n 4</code>) with no
+mock Goshimmer node (<code>-g</code>).</li>
 </ol>
 <pre><code>wasp-cluster init my-cluster -n 4 -g
 </code></pre>

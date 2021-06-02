@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html" class="active"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the Value Tangle</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain. Core contacts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contract. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Calling a view from the Solo environment</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Sending and receiving tokens with the address</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending iotas from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html" class="active"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -149,71 +149,87 @@
                     <main>
                         <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
 <h2 id="the-solo-package"><a class="header" href="#the-solo-package">The <em>Solo</em> package</a></h2>
-<p>Solo is a Go package to write tests for IOTA smart contracts. 
-It allows the deployment of ISCP chains and smart contracts. It also provides a toolkit for interaction 
-with smart contracts, for manipulation of tokens and ledger accounts in an environment that is almost 
-identical to the distributed multi-chain environment of the ISCP. </p>
-<p>The <code>Solo</code> package and its <code>GoDoc</code> link <a href="../../packages/solo/readme.html">can be found here</a>. 
-The GoDocs provides a reference to all Solo calls which can be used in tests (not necessarily covered in this tutorial). </p>
-<p>Smart contracts are notoriously isolated from the outside world. 
-The effect of the user interaction with a smart contract is normally only observed in its state change. 
-The approach in this tutorial is to explain all main concepts of ISCP development through 
-loading smart contracts into the <em>Solo</em> tests, invoking its functions and examining state changes.</p>
-<p>ISCP is currently in active development, so things change and are less than perfect. 
-In the current stage the ISCP software is experimental. 
-We expect feedback from the community about hands-on experience. 
-We also expect contribution to the development of ISCP itself, including Rust/Wasm development environment 
-or, possibly, alternative VM implementations. </p>
-<p><em>Solo</em> is not a toy environment. It allows developers to develop and test real smart contracts and 
-entire inter-chain protocols before deploying them on the distributed network.</p>
+<p>Solo is a Go package to write tests for IOTA smart contracts. It allows the
+deployment of ISCP chains and smart contracts. It also provides a toolkit for
+interaction with smart contracts, for manipulation of tokens and ledger accounts
+in an environment that is almost identical to the distributed multi-chain
+environment of the ISCP.</p>
+<p>The <code>Solo</code> package and its <code>GoDoc</code> link 
+<a href="../../packages/solo/readme.html">can be found here</a>. The GoDocs provides a
+reference to all Solo calls which can be used in tests (not necessarily covered
+in this tutorial).</p>
+<p>Smart contracts are notoriously isolated from the outside world. The effect of
+the user interaction with a smart contract is normally only observed in its
+state change. The approach in this tutorial is to explain all main concepts of
+ISCP development through loading smart contracts into the <em>Solo</em> tests, invoking
+its functions and examining state changes.</p>
+<p>ISCP is currently in active development, so things change and are less than
+perfect. In the current stage the ISCP software is experimental. We expect
+feedback from the community about hands-on experience. We also expect
+contribution to the development of ISCP itself, including Rust/Wasm development
+environment or, possibly, alternative VM implementations.</p>
+<p><em>Solo</em> is not a toy environment. It allows developers to develop and test real
+smart contracts and entire inter-chain protocols before deploying them on the
+distributed network.</p>
 <p>Please follow <a href="install.html">the link</a> for installation instructions.</p>
 <h2 id="first-example"><a class="header" href="#first-example">First example</a></h2>
-<p>The following is an example of a <em>Solo</em> test. 
-It deploys a new chain and invokes a function in the <code>root</code> contract. </p>
-<p>The <code>root</code> contract always exists on any chain. 
-So for this example there is no need to deploy any new contract.
-The test log to the testing output the main parameters of the chain, lists names and IDs of all four core contracts.</p>
+<p>The following is an example of a <em>Solo</em> test. It deploys a new chain and invokes
+a function in the <code>root</code> contract.</p>
+<p>The <code>root</code> contract always exists on any chain. So for this example there is no
+need to deploy any new contract. The test log to the testing output the main
+parameters of the chain, lists names and IDs of all four core contracts.</p>
 <pre><code class="language-go">func TestTutorial1(t *testing.T) {
-	env := solo.New(t, false, false)
-	chain := env.NewChain(nil, &quot;ex1&quot;)
-
-	chainInfo, coreContracts := chain.GetInfo()   // calls view root::GetInfo
-	require.EqualValues(t, 4, len(coreContracts)) // 4 core contracts deployed by default
-
-	t.Logf(&quot;chainID: %s&quot;, chainInfo.ChainID)
-	t.Logf(&quot;chain owner ID: %s&quot;, chainInfo.ChainOwnerID)
-	for hname, rec := range coreContracts {
-		t.Logf(&quot;    Core contract '%s': %s&quot;, rec.Name, coretypes.NewContractID(chain.ChainID, hname))
-	}
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex1&quot;)
+    
+    chainID, chainOwnerID, coreContracts := chain.GetInfo()                      // calls view root::GetChainInfo
+    require.EqualValues(t, len(core.AllCoreContractsByHash), len(coreContracts)) // all core contracts deployed by default
+    
+    t.Logf(&quot;chain ID: %s&quot;, chainID.String())
+    t.Logf(&quot;chain owner ID: %s&quot;, chainOwnerID.String())
+    for hname, rec := range coreContracts {
+        t.Logf(&quot;    Core contract '%s': %s&quot;, rec.Name, coretypes.NewAgentID(chainID.AsAddress(), hname))
+    }
 }
 </code></pre>
 <p>The output of the test will be something like this:</p>
 <pre><code>=== RUN   TestTutorial1
-18:47.411	INFO	TestTutorial1	solo/solo.go:160	deploying new chain 'ex1'
-18:47.415	INFO	TestTutorial1.ex1	vmcontext/runreq.go:179	eventlog -&gt; '[req] [0]CziZYb8ZkqwgftQ9Am8sz2GTM3EEevWHGSVfuzx74Wan: Ok'
-18:47.416	INFO	TestTutorial1.ex1	solo/run.go:82	state transition #0 --&gt; #1. Requests in the block: 1. Posted: 0
-18:47.416	INFO	TestTutorial1	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
-18:47.416	INFO	TestTutorial1.ex1	solo/solo.go:240	chain 'ex1' deployed. Chain ID: Qu74LELWVfhFD8QroZoZDicVNWQ1WudWhU7PS9Serkuf
-18:47.416	INFO	TestTutorial1.ex1	solo/req.go:172	callView: root::getChainInfo
-    tutorial_test.go:21: chainID: Qu74LELWVfhFD8QroZoZDicVNWQ1WudWhU7PS9Serkuf
-    tutorial_test.go:22: chain owner ID: A/MRVBJxYjreRDiEaAYNKaoHMS8y4DPZKHHJNxf2fP7zxb
-    tutorial_test.go:24:     Core contract 'eventlog': Qu74LELWVfhFD8QroZoZDicVNWQ1WudWhU7PS9Serkuf::661aa7d8
-    tutorial_test.go:24:     Core contract 'blob': Qu74LELWVfhFD8QroZoZDicVNWQ1WudWhU7PS9Serkuf::fd91bc63
-    tutorial_test.go:24:     Core contract 'root': Qu74LELWVfhFD8QroZoZDicVNWQ1WudWhU7PS9Serkuf::cebf5908
-    tutorial_test.go:24:     Core contract 'accounts': Qu74LELWVfhFD8QroZoZDicVNWQ1WudWhU7PS9Serkuf::3c4b5e02
---- PASS: TestTutorial1 (0.01s)
+21:46.217	INFO	TestTutorial1	solo/solo.go:140	Solo environment created with initial logical time 2021-04-27 12:21:46.2163941 -0700 PDT m=+0.004574501
+21:46.217	INFO	TestTutorial1	solo/solo.go:187	deploying new chain 'ex1'. ID: $/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU, state controller address: 16e5mTcM9ufZQP37Ki55NhDLacLpTToieKkeqR5my8cu4
+21:46.217	INFO	TestTutorial1	solo/solo.go:189	     chain '$/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU'. state controller address: 16e5mTcM9ufZQP37Ki55NhDLacLpTToieKkeqR5my8cu4
+21:46.217	INFO	TestTutorial1	solo/solo.go:190	     chain '$/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU'. originator address: 1ECjLLrXYpDKTgtFfft4rFUsd7qkaXQw1Worm4oESzKVi
+21:46.218	INFO	TestTutorial1.ex1	vmcontext/runreq.go:311	eventlog -&gt; '[req] [0]Hy2CGQEi6YHLE3acQoaUe9t2Ej85txq3gG35TCNDas9f: Ok'
+21:46.218	INFO	TestTutorial1	solo/clock.go:35	AdvanceClockBy: logical clock advanced by 2ns
+21:46.218	INFO	TestTutorial1.ex1.m	mempool/mempool.go:119	OUT MEMPOOL [0]Hy2CGQEi6YHLE3acQoaUe9t2Ej85txq3gG35TCNDas9f
+21:46.218	INFO	TestTutorial1.ex1	solo/run.go:86	state transition #0 --&gt; #1. Requests in the block: 1. Outputs: 1
+21:46.218	INFO	TestTutorial1	solo/clock.go:44	ClockStep: logical clock advanced by 1ms
+21:46.218	INFO	TestTutorial1.ex1	solo/solo.go:245	chain 'ex1' deployed. Chain ID: $/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU
+21:46.218	INFO	TestTutorial1.ex1	solo/req.go:243	callView: root::getChainInfo
+    tutorial_test.go:24: chain ID: $/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU
+    tutorial_test.go:25: chain owner ID: A/1ECjLLrXYpDKTgtFfft4rFUsd7qkaXQw1Worm4oESzKVi::00000000
+    tutorial_test.go:27:     Core contract '_default': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::00000000
+    tutorial_test.go:27:     Core contract 'accounts': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::3c4b5e02
+    tutorial_test.go:27:     Core contract 'blob':     A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::fd91bc63
+    tutorial_test.go:27:     Core contract 'blocklog': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::f538ef2b
+    tutorial_test.go:27:     Core contract 'eventlog': A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::661aa7d8
+    tutorial_test.go:27:     Core contract 'root':     A/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU::cebf5908
+--- PASS: TestTutorial1 (0.00s)
 </code></pre>
-<p>The 4 core contracts listed in the log (<code>root</code>, <code>accounts</code>, <code>blob</code>, <code>eventlog</code>) 
-are automatically deployed on each new chain. You can see them listed in the test log together with their <em>contract IDs</em>.</p>
-<p>The output fragment in the log <code>state transition #0 --&gt; #1</code> means the state of the chain has changed from block 
-index 0 (the origin index of the empty state) to block index 1. 
-The state #0 is the empty origin state, the #1 always contains all core smart contracts deployed on the chain as well as other 
-variables of chain, such as <em>chainID</em> and <em>chain owner ID</em>.</p>
-<p>The <em>chainID</em> and <em>chain owner ID</em> are respectively ID of the deployed 
-chain <code>Ygtcnzs4zHF3Ao9i5FytNT5oYykUvYtuJSSANuxohcoo</code> and the address (in the form of <em>agent ID</em>) 
-from which the chain was deployed: <code>A/RxRUJAcHajNX1A3bFBdECxQVkNwELTnPfU7aNboEz9hN</code>
-(the prefix <code>A/</code> indicates that the chain owner is an address, not a smart contract).</p>
-<p>Next: <a href="02.html">Tokens and the Value Tangle</a></p>
+<p>The core contracts listed in the log (<code>_default</code>, <code>accounts</code>, <code>blob</code>, <code>blocklog</code>
+, <code>eventlog</code>, <code>root</code>) are automatically deployed on each new chain. You can see
+them listed in the test log together with their <em>contract IDs</em>.</p>
+<p>The output fragment in the log <code>state transition #0 --&gt; #1</code> means the state of
+the chain has changed from block index 0 (the origin index of the empty state)
+to block index 1. The state #0 is the empty origin state, the #1 always contains
+all core smart contracts deployed on the chain as well as other variables of
+chain, such as <em>chainID</em> and <em>chain owner ID</em>.</p>
+<p>The <em>chain ID</em> and <em>chain owner ID</em> are respectively ID of the deployed
+chain <code>$/iGBuy2yPUpdjX8p8ZXoAkHeFhW7bkrR1dwavWB4CknMU</code> and the address (in the
+form of <em>agent ID</em>) from which the chain was deployed:
+<code>A/1ECjLLrXYpDKTgtFfft4rFUsd7qkaXQw1Worm4oESzKVi::00000000</code> (the prefixes <code>$/</code>
+and <code>A/</code> indicate that what follow are a chain ID and an agent ID, respectively)
+.</p>
+<p>Next: <a href="02.html">Tokens and the UTXO Ledger</a></p>
 
                     </main>
 

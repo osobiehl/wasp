@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Calling a view from the Solo environment - ISCP Documentation</title>
+        <title>Invoking smart contracts. Calling a view - ISCP Documentation</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the Value Tangle</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain. Core contacts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contract. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html" class="active"><strong aria-hidden="true">2.7.</strong> Calling a view from the Solo environment</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Sending and receiving tokens with the address</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending iotas from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html" class="active"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,44 +148,51 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
-<p>Previous: <a href="06.html">Invoking smart contract. Sending a request</a></p>
-<h2 id="calling-a-view-from-the-solo-environment"><a class="header" href="#calling-a-view-from-the-solo-environment">Calling a view from the Solo environment</a></h2>
-<p>The statement in the above example calls a view entry point <code>getString</code> of the smart contract <code>example1</code> without parameters:</p>
-<pre><code>res, err := chain.CallView(&quot;example1&quot;, &quot;getString&quot;)
+<p>Previous: <a href="06.html">Invoking smart contracts. Sending a request</a></p>
+<h2 id="invoking-smart-contracts-calling-a-view"><a class="header" href="#invoking-smart-contracts-calling-a-view">Invoking smart contracts. Calling a view</a></h2>
+<p>The statement in the above example calls the view entry point <code>getString</code> of the
+smart contract <code>example1</code> without parameters:</p>
+<pre><code class="language-go">res, err := chain.CallView(&quot;example1&quot;, &quot;getString&quot;)
 </code></pre>
-<p>The call returns a result res, a collection of key/value pairs and error (if not <code>nil</code>).</p>
+<p>The call returns both a collection of key/value pairs <code>res</code> and an error result
+<code>err</code> in typical Go fashion.</p>
 <p><img src="call_view.png" alt="" /></p>
-<p>The basic principle of calling a view is similar to the sending a request to the smart contract. 
-The essential difference is that calling a view is not a transaction but just a synchronous call 
-to the view entry point function, exposed by the smart contract.</p>
-<p>Naturally, calling a view doesn't involve any token transfer. 
-Sending a request (a transaction) to a view entry point will result in an exception. It will return 
-all attached tokens back to the sender (minus fees, if any).</p>
-<p>Views are used to retrieve information about the state of the smart contract, 
-for example to display it on a website. Certain <em>Solo</em> methods such as <code>chain.GetInfo</code>, 
-<code>chain.GetFeeInfo</code> and <code>chain.GetTotalAssets</code> call views of the core smart contracts behind scenes 
-to retrieve the information about the chain or a specific smart contract.</p>
-<h3 id="decoding-results-returned-by-postrequest-and-callview"><a class="header" href="#decoding-results-returned-by-postrequest-and-callview">Decoding results returned by <em>PostRequest</em> and <em>CallView</em></a></h3>
-<p>The following is the technicality of the Go environment of <em>Solo</em>.</p>
-<p>The result returned by the call to the entry point from the <em>Solo</em> environment is in the form of key/value pairs, 
-the <code>dict.Dict</code> type. 
-It is an extended interface and alias of the <code>map[string][]byte</code>. 
-The <a href="https://github.com/iotaledger/wasp/blob/master/packages/kv/dict/dict.go">dict.Dict</a> package implements 
-<code>kv.KVStore</code> interface and provides a lot of useful functions to handle this form of key/value storage.</p>
-<p>In normal operation of smart contracts one can only retrieve results returned by view calls, 
-since view calls are synchronous. 
-On the other hand, sending a request to a smart contract is an asynchronous operation, and 
-the caller cannot retrieve the result. 
-However, in the <em>Solo</em> environment, the call to <code>PostRequest</code> is synchronous, and the caller can inspect 
-the result: this is a convenient difference between the mocked <em>Solo</em> environment and a 
-distributed Value Tangle ledger used by Wasp nodes. 
-It can be used to make assertions on the result of the call in the test.</p>
-<p>The example <code>res</code> is a dictionary where keys and values are binary slices. The statement</p>
-<pre><code>counter, exists, err := codec.DecodeInt64(res.MustGet(&quot;counter&quot;)) 
+<p>The basic principle of calling a view is similar to sending a request to the
+smart contract. The essential difference is that calling a view does not 
+constitute an asynchronous transaction, but is just a direct synchronous 
+call to the view entry point function, exposed by the smart contract.</p>
+<p>Therefore, calling a view doesn't involve any token transfers. Sending a
+request (a transaction) to a view entry point will result in an exception. It
+will return all attached tokens back to the sender (minus fees, if any).</p>
+<p>Views are used to retrieve information about the state of the smart contract,
+for example to display the information on a website. Certain <em>Solo</em> methods such
+as <code>chain.GetInfo</code>, <code>chain.GetFeeInfo</code> and <code>chain.GetTotalAssets</code> call views of
+the core smart contracts behind scenes to retrieve the information about the
+chain or a specific smart contract.</p>
+<h3 id="decoding-results-returned-by-postrequestsync-and-callview"><a class="header" href="#decoding-results-returned-by-postrequestsync-and-callview">Decoding results returned by <em>PostRequestSync</em> and <em>CallView</em></a></h3>
+<p>The following is a specific technicality of the Go environment of <em>Solo</em>.</p>
+<p>The result returned by the call to an entry point from the <em>Solo</em> environment
+is in the form of key/value pairs, the <code>dict.Dict</code> type. It is an extended
+interface and alias of <code>map[string][]byte</code>.
+The <a href="https://github.com/iotaledger/wasp/blob/master/packages/kv/dict/dict.go">dict.Dict</a>
+package implements the <code>kv.KVStore</code> interface and provides a lot of useful 
+functions to handle this form of key/value storage.</p>
+<p>In normal operation of smart contracts one can only retrieve results returned by
+view calls, since view calls are synchronous. Sending a request to a smart
+contract is normally an asynchronous operation, and the caller cannot retrieve
+the result. However, in the <em>Solo</em> environment, the call to <code>PostRequestSync</code> is
+synchronous, and the caller can inspect the result: this is a convenient
+difference between the mocked <em>Solo</em> environment, and the distributed UTXO
+Ledger used by Wasp nodes. It can be used to make assertions about the results
+of a call in the tests.</p>
+<p>In the example <code>res</code> is a dictionary where keys and values are binary slices.
+The statement</p>
+<pre><code class="language-go">returnedString, exists, err := codec.DecodeString(res.MustGet(&quot;paramString&quot;))
 </code></pre>
-<p>takes the value of the key <code>counter</code> from the key value store and attempts to decode it as <code>int64</code>.
-The decoding returns a possible error value, existence flag and the value itself.</p>
-<p>Next: <a href="08.html">Sending and receiving tokens with the address</a> </p>
+<p>takes the value of the key <code>paramString</code> from the key value store and attempts
+to decode it as a <code>string</code>. The decoding returns a possible error value,
+existence flag and the value itself.</p>
+<p>Next: <a href="08.html">Accounts: deposit and withdraw tokens</a> </p>
 
                     </main>
 

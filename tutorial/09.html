@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the Value Tangle</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain. Core contacts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contract. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Calling a view from the Solo environment</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Sending and receiving tokens with the address</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html" class="active"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending iotas from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html" class="active"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,52 +148,50 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
-<p>Previous: <a href="08.html">Sending and receiving tokens with address</a></p>
+<p>Previous: <a href="08.html">Accounts: deposit and withdraw tokens</a></p>
 <h2 id="sending-tokens-to-the-smart-contract"><a class="header" href="#sending-tokens-to-the-smart-contract">Sending tokens to the smart contract</a></h2>
-<p>Let's send some tokens to the smart contract. The following example deploys familiar <code>example1</code> 
-Rust/Wasm smart contract on the chain and sends 42 iota to it.</p>
+<p>Let's send some tokens to the smart contract. The following example deploys the
+familiar <code>example1</code> Rust/Wasm smart contract on the chain and sends 42 iota to it.</p>
 <pre><code class="language-go">func TestTutorial6(t *testing.T) {
-	env := solo.New(t, false, false)
-	chain := env.NewChain(nil, &quot;ex6&quot;)
-
-	err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;../pkg/example_tutorial_bg.wasm&quot;)
-	require.NoError(t, err)
-
-	// global ID of the deployed contract
-	contractID := coretypes.NewContractID(chain.ChainID, coretypes.Hn(&quot;example1&quot;))
-	// contract id in the form of the agent ID
-	contractAgentID := coretypes.NewAgentIDFromContractID(contractID)
-
-	userWallet := env.NewSignatureSchemeWithFunds()
-	userAddress := userWallet.Address()
-	userAgentID := coretypes.NewAgentIDFromAddress(userWallet.Address())
-
-	env.AssertAddressBalance(userAddress, balance.ColorIOTA, 1337)
-	chain.AssertAccountBalance(contractAgentID, balance.ColorIOTA, 0) // empty on-chain
-	chain.AssertAccountBalance(userAgentID, balance.ColorIOTA, 0)     // empty on-chain
-
-	req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;).
-		WithTransfer(balance.ColorIOTA, 42)
-	_, err = chain.PostRequest(req, userWallet)
-	require.NoError(t, err)
-
-	chain.AssertAccountBalance(contractAgentID, balance.ColorIOTA, 42)
-	chain.AssertAccountBalance(userAgentID, balance.ColorIOTA, 1)
-	env.AssertAddressBalance(userAddress, balance.ColorIOTA, 1337-43)
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex6&quot;)
+    
+    err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    contractAgentID := coretypes.NewAgentID(chain.ChainID.AsAddress(), coretypes.Hn(&quot;example1&quot;))
+    
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0) // empty on-chain
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)     // empty on-chain
+    
+    req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+    req.WithIotas(42)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.NoError(t, err)
+    
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 42)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo-42)
 }
 </code></pre>
-<p>The statement</p>
-<pre><code>	req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;).WithTransfer(balance.ColorIOTA, 42)
+<p>The statements</p>
+<pre><code>req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;, &quot;paramString&quot;, &quot;Hello, world!&quot;)
+req.WithIotas(42)
 </code></pre>
-<p>attaches 42 iotas to the usual call to <code>storeString</code> entry point. 
-<code>PostRequest</code> sends a request with all iotas to the smart contract. 
-The 42 iotas appear in the account controlled by the smart contract on its chain.
-<code>userAgent</code> has 1 iota controlled by it on the chain (for a reason we skip here). </p>
-<p>So, what <code>example1</code> smart contract does with these 42 iotas? Nothing! However, the creator (and nobody else) 
-of the smart contract may withdraw those iotas to it's own address by sending a request <code>withdrawIotas</code>.</p>
-<p>What if we send some other colored tokens, not iotas to the <code>example1</code> smart contract? 
-They will be effectively lost, because programmer of the <code>example1</code> smart contract didn't implement methods 
-to deal with colored tokens. </p>
+<p>attach 42 iotas to the usual call to the <code>storeString</code> entry point.
+<code>PostRequestSync</code> sends the request with the iotas to the smart contract. The 42
+iotas appear in the account controlled by the smart contract on its chain.</p>
+<p>So, what does the <code>example1</code> smart contract do with these 42 iotas? Nothing!
+However, the creator of the smart contract (and nobody else) may withdraw those
+iotas to its own address by sending a <code>withdrawIotas</code> request.</p>
+<p>What if we send some other colored tokens, not iotas, to the <code>example1</code>
+smart contract? They will effectively be lost, because the programmer of
+the <code>example1</code> smart contract didn't implement a way to deal with colored
+tokens.</p>
 <p>Next: <a href="10.html">Return of tokens in case of failure</a></p>
 
                     </main>

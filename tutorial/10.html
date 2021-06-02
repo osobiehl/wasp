@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the Value Tangle</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain. Core contacts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contract. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Calling a view from the Solo environment</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Sending and receiving tokens with the address</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html" class="active"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending iotas from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../welcome.html"><strong aria-hidden="true">1.</strong> Welcome</a></li><li class="chapter-item expanded "><a href="../tutorial/index.html"><strong aria-hidden="true">2.</strong> Tutorials</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/01.html"><strong aria-hidden="true">2.1.</strong> The Solo package</a></li><li class="chapter-item expanded "><a href="../tutorial/02.html"><strong aria-hidden="true">2.2.</strong> Tokens and the UTXO Ledger</a></li><li class="chapter-item expanded "><a href="../tutorial/03.html"><strong aria-hidden="true">2.3.</strong> Creating a chain; Core contracts</a></li><li class="chapter-item expanded "><a href="../tutorial/04.html"><strong aria-hidden="true">2.4.</strong> Deploying and running a Rust smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/05.html"><strong aria-hidden="true">2.5.</strong> Structure of the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/06.html"><strong aria-hidden="true">2.6.</strong> Invoking smart contracts. Sending a request</a></li><li class="chapter-item expanded "><a href="../tutorial/07.html"><strong aria-hidden="true">2.7.</strong> Invoking smart contracts. Calling a view</a></li><li class="chapter-item expanded "><a href="../tutorial/08.html"><strong aria-hidden="true">2.8.</strong> Accounts: deposit and withdraw tokens</a></li><li class="chapter-item expanded "><a href="../tutorial/09.html"><strong aria-hidden="true">2.9.</strong> Sending tokens to the smart contract</a></li><li class="chapter-item expanded "><a href="../tutorial/10.html" class="active"><strong aria-hidden="true">2.10.</strong> Return of tokens in case of failure</a></li><li class="chapter-item expanded "><a href="../tutorial/11.html"><strong aria-hidden="true">2.11.</strong> Sending tokens from smart contract to address</a></li></ol></li><li class="chapter-item expanded "><a href="../setup_wasp.html"><strong aria-hidden="true">3.</strong> Setup a private ISCP Cluster</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,54 +148,52 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="exploring-iota-smart-contracts"><a class="header" href="#exploring-iota-smart-contracts">Exploring IOTA Smart Contracts</a></h1>
-<p>Previous: <a href="09.html">Sending atokens to the smart contract</a></p>
+<p>Previous: <a href="09.html">Sending tokens to the smart contract</a></p>
 <h2 id="return-of-tokens-in-case-of-failure"><a class="header" href="#return-of-tokens-in-case-of-failure">Return of tokens in case of failure</a></h2>
-<p>Natural question: what if I attach tokens to the request, send it to the smart contract and smart contract fails (panics)?
-The panics may occur for whatever reason: it may be due to wrong parameters or it may be a runtime error, a bug. 
-What will happen with my tokens?</p>
-<p>The following test demonstrates the situation when the request results in the panic in the smart contract.</p>
+<p>Natural question: what if I attach tokens to the request, send it to the smart
+contract and the smart contract fails (panics)? The panics may occur for
+whatever reason: it may be due to wrong parameters, or it may be a runtime
+error, or a bug. What will happen with my tokens?</p>
+<p>The following test demonstrates the situation when the request results in a
+panic in the smart contract.</p>
 <pre><code class="language-go">func TestTutorial7(t *testing.T) {
-	env := solo.New(t, false, false)
-	chain := env.NewChain(nil, &quot;ex7&quot;)
-
-	err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;../pkg/example_tutorial_bg.wasm&quot;)
-	require.NoError(t, err)
-
-	// global ID of the deployed contract
-	contractID := coretypes.NewContractID(chain.ChainID, coretypes.Hn(&quot;example1&quot;))
-	// contract id in the form of the agent ID
-	contractAgentID := coretypes.NewAgentIDFromContractID(contractID)
-
-	userWallet := env.NewSignatureSchemeWithFunds()
-	userAddress := userWallet.Address()
-	userAgentID := coretypes.NewAgentIDFromAddress(userWallet.Address())
-
-	env.AssertAddressBalance(userAddress, balance.ColorIOTA, 1337)
-	chain.AssertAccountBalance(contractAgentID, balance.ColorIOTA, 0) // empty on-chain
-	chain.AssertAccountBalance(userAgentID, balance.ColorIOTA, 0)     // empty on-chain
-
-	// missing parameter, will panic
-	req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;).
-		WithTransfer(balance.ColorIOTA, 42)
-	_, err = chain.PostRequest(req, userWallet)
-	require.Error(t, err)
-
-	chain.AssertAccountBalance(contractAgentID, balance.ColorIOTA, 0)
-	chain.AssertAccountBalance(userAgentID, balance.ColorIOTA, 1)
-	env.AssertAddressBalance(userAddress, balance.ColorIOTA, 1337-1)
+    env := solo.New(t, false, false)
+    chain := env.NewChain(nil, &quot;ex7&quot;)
+    
+    err := chain.DeployWasmContract(nil, &quot;example1&quot;, &quot;example_tutorial_bg.wasm&quot;)
+    require.NoError(t, err)
+    
+    contractAgentID := coretypes.NewAgentID(chain.ChainID.AsAddress(), coretypes.Hn(&quot;example1&quot;))
+    
+    userWallet, userAddress := env.NewKeyPairWithFunds()
+    userAgentID := coretypes.NewAgentID(userAddress, 0)
+    
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0) // empty on-chain
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)     // empty on-chain
+    
+    // missing parameter, will panic
+    req := solo.NewCallParams(&quot;example1&quot;, &quot;storeString&quot;)
+    req.WithIotas(42)
+    _, err = chain.PostRequestSync(req, userWallet)
+    require.Error(t, err)
+    
+    chain.AssertAccountBalance(contractAgentID, ledgerstate.ColorIOTA, 0)
+    chain.AssertAccountBalance(userAgentID, ledgerstate.ColorIOTA, 0)
+    env.AssertAddressBalance(userAddress, ledgerstate.ColorIOTA, solo.Saldo)
 }
 </code></pre>
 <p>The programmer forgets the parameter <code>paramString</code> and the program panics:</p>
-<pre><code>30:13.501	PANIC	TestTutorial1.ex7	vmcontext/log.go:12	string parameter not found
-30:13.501	ERROR	TestTutorial1.ex7	vmcontext/runreq.go:172	recovered from panic in VM: string parameter not found
-30:13.501	INFO	TestTutorial1.ex7	vmcontext/runreq.go:179	eventlog -&gt; '[req] [0]Ge4WLPVN7dGfW7uViwDLYQh8FVpvWsZG2GkYKYdtezA8: recovered from panic in VM: string parameter not found'
-30:13.508	INFO	TestTutorial1.ex7	solo/run.go:82	state transition #3 --&gt; #4. Requests in the block: 1. Posted: 0
+<pre><code>01:09.361	PANIC	TestTutorial7.ex7	vmcontext/log.go:12	string parameter not found
+01:09.363	INFO	TestTutorial7.ex7	vmcontext/runreq.go:311	eventlog -&gt; '[req] [1]3F852PiSDkYXSjhDjLhqYK5bRVWtMkHA1fyicXEams3L: [1]3F852PiSDkYXSjhDjLhqYK5bRVWtMkHA1fyicXEams3L: recovered from panic in VM: string parameter not found'
+01:09.363	INFO	TestTutorial7.ex7.m	mempool/mempool.go:119	OUT MEMPOOL [1]3F852PiSDkYXSjhDjLhqYK5bRVWtMkHA1fyicXEams3L
+01:09.363	INFO	TestTutorial7.ex7	solo/run.go:86	state transition #3 --&gt; #4. Requests in the block: 1. Outputs: 2
 </code></pre>
-<p>We can see that all sent 42 tokens are returned to the sender's address. The 1 iota token is accrued 
-to the sender (<code>userWallet</code>) on the chain. </p>
-<p>In case of panic for whatever reason, the fallback logic of the VM context of ISCP returns all 
-tokens (less fees) to the sender's location (to the sender's address the example above). </p>
-<p>Next: <a href="11.html">Sending iotas from smart contract to address</a> </p>
+<p>We can see that all sent 42 tokens are returned to the sender's address.</p>
+<p>In case of panic for whatever reason, the fallback logic of the VM context of
+ISCP returns all tokens (minus fees) to the sender (to the sender's address the
+example above).</p>
+<p>Next: <a href="11.html">Sending tokens from smart contract to address</a> </p>
 
                     </main>
 

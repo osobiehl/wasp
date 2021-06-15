@@ -6,18 +6,17 @@ package wasmproc
 import (
 	"strconv"
 
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/vm/wasmhost"
-
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\ // \\
 
-func NewScBalances(vm *wasmProcessor, keyId int32) *ScDict {
+func NewScBalances(vm *wasmProcessor, keyID int32) *ScDict {
 	o := NewScDict(vm)
-	switch keyId {
+	switch keyID {
 	case wasmhost.KeyIncoming:
 		if vm.ctx == nil {
 			o.Panic("no incoming() on views")
@@ -35,7 +34,7 @@ func NewScBalances(vm *wasmProcessor, keyId int32) *ScDict {
 		}
 		return loadBalances(o, vm.ctxView.Balances())
 	}
-	o.Panic("unknown balances: %s", vm.GetKeyStringFromId(keyId))
+	o.Panic("unknown balances: %s", vm.GetKeyStringFromId(keyID))
 	return nil
 }
 

@@ -27,8 +27,6 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/iotaledger/wasp/plugins/wasmtimevm"
 	"github.com/stretchr/testify/require"
-
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // String is string representation for main parameters of the chain

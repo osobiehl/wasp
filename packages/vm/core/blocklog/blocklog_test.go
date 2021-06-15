@@ -4,6 +4,9 @@ import (
 	"math/rand"
 	"testing"
 
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/wasp/packages/coretypes"
+	"github.com/stretchr/testify/require"
 )
 
 func TestSerdeRequestLogRecord(t *testing.T) {

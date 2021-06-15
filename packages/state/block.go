@@ -6,13 +6,9 @@ import (
 	"io"
 	"time"
 
-	"golang.org/x/xerrors"
-
-	"golang.org/x/xerrors"
-
-	"github.com/iotaledger/wasp/packages/util"
-
 	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/wasp/packages/util"
+	"golang.org/x/xerrors"
 )
 
 type block struct {

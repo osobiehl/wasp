@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"sort"
 
+	"github.com/iotaledger/wasp/packages/hashing"
 )
 
 // Permutation16 deterministic permutation of integers from 0 to size-1

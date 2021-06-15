@@ -3,6 +3,7 @@ package util
 import (
 	"testing"
 
+	"github.com/iotaledger/wasp/packages/hashing"
 )
 
 func TestPermute(t *testing.T) {

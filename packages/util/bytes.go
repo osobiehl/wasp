@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"io"
 
+	"github.com/iotaledger/wasp/packages/hashing"
 )
 
 func Bytes(obj interface{ Write(io.Writer) error }) ([]byte, error) {

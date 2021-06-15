@@ -7,11 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/wasp/packages/testutil/testlogger"
-
-	"github.com/iotaledger/wasp/packages/testutil/testlogger"
-
 	"github.com/iotaledger/hive.go/logger"
+	"github.com/iotaledger/wasp/packages/testutil/testlogger"
 	"github.com/stretchr/testify/require"
 )
 

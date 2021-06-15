@@ -4,7 +4,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client/chainclient"
 	"github.com/iotaledger/wasp/contracts/native/inccounter"
 	"github.com/iotaledger/wasp/packages/coretypes"
@@ -12,6 +11,8 @@ import (
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func TestOffledgerRequests(t *testing.T) {

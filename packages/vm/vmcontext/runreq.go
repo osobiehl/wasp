@@ -10,13 +10,14 @@ import (
 	"github.com/iotaledger/wasp/packages/kv"
 	"golang.org/x/xerrors"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/request"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/state"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // RunTheRequest processes any request based on the Extended output, even if it

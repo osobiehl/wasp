@@ -7,9 +7,12 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"golang.org/x/xerrors"
 	"io"
 	"strconv"
+
+	"golang.org/x/xerrors"
+
+	"golang.org/x/xerrors"
 
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/pkg/errors"

@@ -1,10 +1,11 @@
 package vmcontext
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // Accrue calls "deposit" entry point of the accounts contract.

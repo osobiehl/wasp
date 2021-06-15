@@ -4,9 +4,10 @@ import (
 	"net"
 	"testing"
 
-	txstream "github.com/iotaledger/goshimmer/packages/txstream/client"
 	"github.com/iotaledger/wasp/packages/testutil/testlogger"
 	"golang.org/x/xerrors"
+
+	txstream "github.com/iotaledger/goshimmer/packages/txstream/client"
 )
 
 func TestBasic(t *testing.T) {

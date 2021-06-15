@@ -1,8 +1,9 @@
 package testchain
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/registry/committee_record"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type mockedCommitteeRegistry struct {

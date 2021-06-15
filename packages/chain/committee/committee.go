@@ -15,11 +15,12 @@ import (
 	"github.com/iotaledger/hive.go/logger"
 	"go.uber.org/atomic"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/chain"
 	"github.com/iotaledger/wasp/packages/peering"
 	"github.com/iotaledger/wasp/packages/tcrypto"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type committee struct {
@@ -51,7 +52,6 @@ func New(
 	log *logger.Logger,
 	acsRunner ...chain.AsynchronousCommonSubsetRunner, // Only for mocking.
 ) (chain.Committee, error) {
-
 	// load committee record from the registry
 	cmtRec, err := committeeRegistry.GetCommitteeRecord(stateAddr)
 	if err != nil || cmtRec == nil {

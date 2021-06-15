@@ -5,9 +5,10 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client"
 	"github.com/iotaledger/wasp/packages/coretypes"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // WaitUntilRequestProcessed blocks until the request has been processed by all nodes

@@ -13,7 +13,6 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	dkg_pkg "github.com/iotaledger/wasp/packages/dkg"
 	"github.com/iotaledger/wasp/packages/tcrypto"
 	"github.com/iotaledger/wasp/packages/webapi/httperrors"
@@ -24,6 +23,8 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/pangpanglabs/echoswagger/v2"
 	"go.dedis.ch/kyber/v3"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func addDKSharesEndpoints(adm echoswagger.ApiGroup) {

@@ -5,13 +5,14 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/util"
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
 	"github.com/mr-tron/base58"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func ValueFromString(vtype string, s string) []byte {

@@ -4,13 +4,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client/chainclient"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/requestargs"
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
 	"github.com/iotaledger/wasp/tools/wasp-cli/util"
 	"github.com/spf13/cobra"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func postRequestCmd() *cobra.Command {

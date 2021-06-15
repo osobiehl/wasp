@@ -14,7 +14,6 @@ import (
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
 	"github.com/iotaledger/wasp/packages/coretypes/request"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/hashing"
@@ -23,6 +22,8 @@ import (
 	"github.com/iotaledger/wasp/packages/tcrypto"
 	"github.com/iotaledger/wasp/packages/util/ready"
 	"github.com/iotaledger/wasp/packages/vm/processors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type ChainCore interface {

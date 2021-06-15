@@ -1,11 +1,12 @@
 package sbtestsc
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/assert"
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/kv/dict"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func getMintedSupply(ctx coretypes.Sandbox) (dict.Dict, error) {

@@ -6,10 +6,11 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/webapi/model"
 	"github.com/iotaledger/wasp/packages/webapi/routes"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // RequestStatus fetches the processing status of a request.

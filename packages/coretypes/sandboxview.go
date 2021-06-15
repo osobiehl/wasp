@@ -4,10 +4,11 @@
 package coretypes
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/dict"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // SandboxView is an interface for read only call

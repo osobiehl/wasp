@@ -8,10 +8,11 @@ import (
 
 	"github.com/iotaledger/goshimmer/packages/txstream/chopper"
 
-	"github.com/iotaledger/goshimmer/packages/tangle"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/netutil/buffconn"
 	"github.com/iotaledger/wasp/packages/peering"
+
+	"github.com/iotaledger/goshimmer/packages/tangle"
 )
 
 // extension of BufferedConnection from hive.go

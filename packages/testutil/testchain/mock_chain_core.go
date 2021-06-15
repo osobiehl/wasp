@@ -3,7 +3,6 @@ package testchain
 import (
 	"testing"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/chain"
@@ -14,6 +13,8 @@ import (
 	"github.com/iotaledger/wasp/packages/state"
 	"github.com/iotaledger/wasp/packages/vm/processors"
 	"go.uber.org/atomic"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type MockedChainCore struct {
@@ -143,5 +144,4 @@ func (m *MockedChainCore) GlobalSolidIndex() *atomic.Uint32 {
 }
 
 func (m *MockedChainCore) ReceiveOffLedgerRequest(req *request.RequestOffLedger) {
-
 }

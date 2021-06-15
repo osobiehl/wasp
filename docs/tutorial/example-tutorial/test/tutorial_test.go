@@ -3,7 +3,6 @@ package test
 import (
 	"testing"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/solo"
@@ -11,9 +10,11 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
-//TODO update comments to reflect new way of token handling
+// TODO update comments to reflect new way of token handling
 
 func TestTutorial1(t *testing.T) {
 	env := solo.New(t, false, false)

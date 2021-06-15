@@ -4,7 +4,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/kvstore/mapdb"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
@@ -13,6 +12,8 @@ import (
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/kv/optimism"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func TestVirtualStateBasic(t *testing.T) {
@@ -259,5 +260,4 @@ func TestStateReader(t *testing.T) {
 		require.NoError(t, err)
 		require.False(t, ok)
 	})
-
 }

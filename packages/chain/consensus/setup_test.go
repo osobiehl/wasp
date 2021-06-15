@@ -27,9 +27,6 @@ import (
 
 	"github.com/iotaledger/wasp/packages/testutil/testpeers"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxodb"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/hive.go/kvstore"
 	"github.com/iotaledger/hive.go/kvstore/mapdb"
@@ -44,6 +41,10 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.dedis.ch/kyber/v3/pairing"
 	"go.uber.org/zap/zapcore"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxodb"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 )
 
 type mockedEnv struct {
@@ -395,7 +396,7 @@ func (n *mockedNode) WaitStateIndex(until uint32, timeout ...time.Duration) erro
 			continue
 		}
 		if snap.StateIndex >= until {
-			//n.Log.Debugf("reached index %d", until)
+			// n.Log.Debugf("reached index %d", until)
 			return nil
 		}
 		time.Sleep(10 * time.Millisecond)

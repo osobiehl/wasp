@@ -1,9 +1,10 @@
 package multiclient
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client"
 	"github.com/iotaledger/wasp/packages/webapi/model"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // DKSharesGet retrieves distributed key info with specific ChainID from multiple hosts.

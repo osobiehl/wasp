@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/solo"
@@ -12,6 +11,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/iotaledger/wasp/packages/vm/core/testcore/sbtests/sbtestsc"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 const (
@@ -123,5 +124,5 @@ func testSetup3(t *testing.T, w bool) {
 	_, chain := setupChain(t, nil)
 	user, _, _ := setupDeployer(t, chain)
 	setupTestSandboxSC(t, chain, user, w)
-	//setupERC20(t, chain, user, w)
+	// setupERC20(t, chain, user, w)
 }

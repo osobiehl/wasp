@@ -5,9 +5,12 @@ package tcrypto
 
 import (
 	"bytes"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/hive.go/crypto/bls"
 	"io"
+
+
+	"github.com/iotaledger/hive.go/crypto/bls"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 
 	"github.com/iotaledger/wasp/packages/tcrypto/tbdn"
 	"github.com/iotaledger/wasp/packages/util"
@@ -47,7 +50,7 @@ func NewDKShare(
 	if pubBytes, err = sharedPublic.MarshalBinary(); err != nil {
 		return nil, err
 	}
-	var sharedAddress = ledgerstate.NewBLSAddress(pubBytes)
+	sharedAddress := ledgerstate.NewBLSAddress(pubBytes)
 	//
 	// Construct the DKShare.
 	dkShare := DKShare{

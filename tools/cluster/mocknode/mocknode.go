@@ -1,10 +1,11 @@
 package mocknode
 
 import (
-	"github.com/iotaledger/goshimmer/packages/txstream/server"
-	"github.com/iotaledger/goshimmer/packages/txstream/utxodbledger"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/testutil/testlogger"
+
+	"github.com/iotaledger/goshimmer/packages/txstream/server"
+	"github.com/iotaledger/goshimmer/packages/txstream/utxodbledger"
 )
 
 // MockNode provides the bare minimum to emulate a Goshimmer node in a wasp-cluster

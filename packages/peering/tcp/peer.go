@@ -10,12 +10,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/tangle"
 	"github.com/iotaledger/hive.go/backoff"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/peering"
 	"go.dedis.ch/kyber/v3"
 	"go.uber.org/atomic"
+
+	"github.com/iotaledger/goshimmer/packages/tangle"
 )
 
 // retry net.Dial once, on fail after 0.5s

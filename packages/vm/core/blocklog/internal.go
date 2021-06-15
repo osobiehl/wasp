@@ -3,12 +3,13 @@ package blocklog
 import (
 	"fmt"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/assert"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/collections"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // SaveNextBlockInfo appends block info and returns its index
@@ -92,7 +93,7 @@ func isRequestProcessedIntern(partition kv.KVStoreReader, reqid *coretypes.Reque
 	if !seen {
 		return false, nil
 	}
-	// the lookup record is here, have to check is it is nto a collision of digests
+	// the lookup record is here, have to check is it is not a collision of digests
 	bin := lookupTable.MustGetAt(digest[:])
 	lst, err := RequestLookupKeyListFromBytes(bin)
 	if err != nil {

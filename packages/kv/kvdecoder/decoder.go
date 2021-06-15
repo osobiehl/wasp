@@ -6,11 +6,12 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/codec"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type decoder struct {
@@ -46,6 +47,7 @@ func (p *decoder) GetInt64(key kv.Key, def ...int64) (int64, error) {
 	}
 	return def[0], nil
 }
+
 func (p *decoder) MustGetInt64(key kv.Key, def ...int64) int64 {
 	ret, err := p.GetInt64(key, def...)
 	if err != nil {

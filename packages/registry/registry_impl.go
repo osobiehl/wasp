@@ -19,13 +19,14 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/kvstore"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/database/dbkeys"
 	"github.com/iotaledger/wasp/packages/registry/committee_record"
 	"github.com/iotaledger/wasp/packages/tcrypto"
 	"github.com/iotaledger/wasp/plugins/database"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // region Registry /////////////////////////////////////////////////////////
@@ -169,7 +170,6 @@ func (r *Impl) SaveDKShare(dkShare *tcrypto.DKShare) error {
 		return err
 	}
 	return r.store.Set(dbKey, buf)
-
 }
 
 // LoadDKShare implements dkg.DKShareRegistryProvider.

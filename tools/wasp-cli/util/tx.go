@@ -5,9 +5,10 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/tools/wasp-cli/config"
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func PostTransaction(tx *ledgerstate.Transaction) {

@@ -5,8 +5,6 @@ import (
 	"io"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/requestargs"
@@ -15,6 +13,9 @@ import (
 	"github.com/iotaledger/wasp/packages/util"
 	"go.uber.org/atomic"
 	"golang.org/x/crypto/blake2b"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 )
 
 // region RequestMetadata  ///////////////////////////////////////////////////////

@@ -13,9 +13,10 @@ import (
 	"text/template"
 	"time"
 
+	"golang.org/x/xerrors"
+
 	"github.com/iotaledger/goshimmer/client/wallet/packages/seed"
 	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"golang.org/x/xerrors"
 
 	"github.com/iotaledger/wasp/client"
 	"github.com/iotaledger/wasp/client/goshimmer"

@@ -13,9 +13,6 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxodb"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/hive.go/kvstore"
 	"github.com/iotaledger/hive.go/kvstore/mapdb"
@@ -32,6 +29,10 @@ import (
 	"go.dedis.ch/kyber/v3/pairing"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxodb"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 )
 
 type MockedEnv struct {
@@ -228,7 +229,6 @@ func (env *MockedEnv) NewMockedNode(nodeIndex int, timers Timers) *MockedNode {
 		rdr := bytes.NewReader(recvEvent.Msg.MsgData)
 
 		switch recvEvent.Msg.MsgType {
-
 		case chain.MsgGetBlock:
 			msgt := &chain.GetBlockMsg{}
 			if err := msgt.Read(rdr); err != nil {

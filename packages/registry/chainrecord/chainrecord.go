@@ -5,8 +5,9 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/marshalutil"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // ChainRecord represents chain the node is participating in

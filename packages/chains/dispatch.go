@@ -1,10 +1,11 @@
 package chains
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/goshimmer/packages/txstream"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/goshimmer/packages/txstream"
 )
 
 func (c *Chains) dispatchTransactionMsg(msg *txstream.MsgTransaction) {

@@ -9,7 +9,6 @@ package root
 import (
 	"fmt"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/assert"
 	"github.com/iotaledger/wasp/packages/kv/codec"
@@ -22,6 +21,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/blocklog"
 	"github.com/iotaledger/wasp/packages/vm/core/eventlog"
 	"github.com/iotaledger/wasp/packages/vm/core/governance"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // initialize handles constructor, the "init" request. This is the first call to the chain

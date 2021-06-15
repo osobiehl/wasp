@@ -3,17 +3,18 @@ package vmcontext
 import (
 	"errors"
 	"fmt"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+
+
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 )
 
-var (
-	ErrContractNotFound = errors.New("contract not found")
-)
+var ErrContractNotFound = errors.New("contract not found")
 
 // Call
 func (vmctx *VMContext) Call(targetContract coretypes.Hname, epCode coretypes.Hname, params dict.Dict, transfer *ledgerstate.ColoredBalances) (dict.Dict, error) {

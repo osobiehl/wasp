@@ -5,13 +5,14 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/state"
 	"github.com/iotaledger/wasp/packages/vm/processors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type VMRunner interface {

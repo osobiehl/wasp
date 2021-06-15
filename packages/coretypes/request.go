@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/marshalutil"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/util"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // region Request //////////////////////////////////////////////////////

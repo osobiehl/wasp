@@ -18,10 +18,11 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/goshimmer/packages/txstream/chopper"
 	"github.com/mr-tron/base58"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/goshimmer/packages/txstream/chopper"
 
 	"github.com/iotaledger/wasp/packages/util"
 	"go.dedis.ch/kyber/v3"
@@ -40,9 +41,7 @@ const (
 	chunkMessageOverhead = 8 + 1
 )
 
-var (
-	crc32q *crc32.Table
-)
+var crc32q *crc32.Table
 
 func init() {
 	crc32q = crc32.MakeTable(0xD5828281)

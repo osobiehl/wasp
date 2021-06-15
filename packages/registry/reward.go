@@ -1,10 +1,11 @@
 package registry
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 	"github.com/iotaledger/wasp/packages/parameters"
 	flag "github.com/spf13/pflag"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 const (
@@ -17,7 +18,7 @@ func InitFlags() {
 }
 
 func GetFeeDestination(chainID *chainid.ChainID) ledgerstate.Address {
-	//TODO
+	// TODO
 	ret, err := ledgerstate.AddressFromBase58EncodedString(parameters.GetString(CfgRewardAddress))
 	if err != nil {
 		return nil

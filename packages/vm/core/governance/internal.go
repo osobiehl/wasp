@@ -1,9 +1,10 @@
 package governance
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/codec"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // GetRotationAddress tries to read the state of 'governance' and extract rotation address

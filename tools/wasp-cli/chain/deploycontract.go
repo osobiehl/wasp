@@ -1,7 +1,6 @@
 package chain
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client/chainclient"
 	"github.com/iotaledger/wasp/contracts/native"
 	"github.com/iotaledger/wasp/packages/coretypes"
@@ -14,6 +13,8 @@ import (
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
 	"github.com/iotaledger/wasp/tools/wasp-cli/util"
 	"github.com/spf13/cobra"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 var deployContractCmd = &cobra.Command{

@@ -3,9 +3,12 @@ package collections
 import (
 	"bytes"
 	"errors"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+
+
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/util"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // Map represents a dynamic key-value collection in a kv.KVStore.
@@ -180,7 +183,7 @@ func (m *ImmutableMap) Iterate(f func(elemKey []byte, value []byte) bool) error 
 	prefix := m.getElemKey(nil)
 	return m.kvr.Iterate(prefix, func(key kv.Key, value []byte) bool {
 		return f([]byte(key)[len(prefix):], value)
-		//return f([]byte(key), value)
+		// return f([]byte(key), value)
 	})
 }
 

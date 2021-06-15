@@ -3,7 +3,6 @@ package chain
 import (
 	"fmt"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/kv/dict"
@@ -12,6 +11,8 @@ import (
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
 	"github.com/iotaledger/wasp/tools/wasp-cli/util"
 	"github.com/spf13/cobra"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 var uploadQuorum int

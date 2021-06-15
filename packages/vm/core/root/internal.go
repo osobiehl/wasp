@@ -3,7 +3,6 @@ package root
 import (
 	"fmt"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/assert"
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
@@ -12,6 +11,8 @@ import (
 	"github.com/iotaledger/wasp/packages/kv/collections"
 	"github.com/iotaledger/wasp/packages/kv/kvdecoder"
 	"github.com/iotaledger/wasp/packages/vm/core/_default"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // FindContract is an internal utility function which finds a contract in the KVStore
@@ -63,7 +64,7 @@ func MustGetChainOwnerID(state kv.KVStoreReader) *coretypes.AgentID {
 // It is called from within the 'root' contract as well as VMContext and viewcontext objects
 // It is not exposed to the sandbox
 func GetFeeInfo(state kv.KVStoreReader, hname coretypes.Hname) (ledgerstate.Color, uint64, uint64) {
-	//returns nil of contract not found
+	// returns nil of contract not found
 	rec, err := FindContract(state, hname)
 	if err != nil {
 		if err != ErrContractNotFound {

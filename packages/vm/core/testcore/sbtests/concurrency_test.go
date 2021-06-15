@@ -4,13 +4,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/kv/kvdecoder"
 	"github.com/iotaledger/wasp/packages/solo"
 	"github.com/iotaledger/wasp/packages/vm/core/testcore/sbtests/sbtestsc"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func TestCounter(t *testing.T) { run2(t, testCounter) }
@@ -34,7 +35,7 @@ func testCounter(t *testing.T, w bool) {
 
 func TestConcurrency(t *testing.T) { run2(t, testConcurrency) }
 func testConcurrency(t *testing.T, w bool) {
-	//t.SkipNow()
+	// t.SkipNow()
 	_, chain := setupChain(t, nil)
 	setupTestSandboxSC(t, chain, nil, w)
 
@@ -79,7 +80,7 @@ func testConcurrency(t *testing.T, w bool) {
 
 func TestConcurrency2(t *testing.T) { run2(t, testConcurrency2) }
 func testConcurrency2(t *testing.T, w bool) {
-	//t.SkipNow()
+	// t.SkipNow()
 	_, chain := setupChain(t, nil)
 	setupTestSandboxSC(t, chain, nil, w)
 

@@ -10,9 +10,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxodb"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/logger"
@@ -37,6 +34,10 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/zap/zapcore"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxodb"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate/utxoutil"
 )
 
 // DefaultTimeStep is a default step for the logical clock for each PostRequestSync call.

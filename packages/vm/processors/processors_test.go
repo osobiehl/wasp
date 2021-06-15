@@ -1,9 +1,10 @@
 package processors
 
 import (
+	"testing"
+
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
 	"github.com/iotaledger/wasp/packages/vm/core"
-	"testing"
 
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/hashing"
@@ -21,10 +22,10 @@ func TestBasic(t *testing.T) {
 	)
 	assert.NoError(t, err)
 
-	//TODO always exists because it returns default handler
+	// TODO always exists because it returns default handler
 	ep, exists := rootproc.GetEntryPoint(0)
 	assert.True(t, exists)
-    assert.Equal(t, ep.(*coreutil.ContractFunctionInterface).Name, coreutil.DefaultHandler)
+	assert.Equal(t, ep.(*coreutil.ContractFunctionInterface).Name, coreutil.DefaultHandler)
 
 	ep, exists = rootproc.GetEntryPoint(coretypes.Hn(root.FuncDeployContract))
 	assert.True(t, exists)

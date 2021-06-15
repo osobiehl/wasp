@@ -13,10 +13,11 @@ import (
 
 	"github.com/iotaledger/wasp/packages/testutil/testpeers"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/chain/consensus/commoncoin"
 	"github.com/iotaledger/wasp/packages/testutil/testlogger"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/peering"

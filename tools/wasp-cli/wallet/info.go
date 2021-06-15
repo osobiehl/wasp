@@ -1,11 +1,12 @@
 package wallet
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/util"
 	"github.com/iotaledger/wasp/tools/wasp-cli/config"
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
 	"github.com/spf13/cobra"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 var addressCmd = &cobra.Command{

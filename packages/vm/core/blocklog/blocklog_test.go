@@ -1,11 +1,9 @@
 package blocklog
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	"github.com/iotaledger/wasp/packages/coretypes"
-	"github.com/stretchr/testify/require"
 	"math/rand"
 	"testing"
+
 )
 
 func TestSerdeRequestLogRecord(t *testing.T) {

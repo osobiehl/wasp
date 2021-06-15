@@ -3,10 +3,9 @@ package ready
 
 import (
 	"fmt"
-	"go.uber.org/atomic"
-	"golang.org/x/xerrors"
 	"sync"
 	"time"
+
 )
 
 type Ready struct {

@@ -2,13 +2,15 @@ package accounts
 
 import (
 	"fmt"
+
 	"github.com/iotaledger/wasp/packages/vm/core/accounts/commonaccount"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/assert"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/kv/kvdecoder"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // initialize the init call

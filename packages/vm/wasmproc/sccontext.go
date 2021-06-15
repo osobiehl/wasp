@@ -6,7 +6,6 @@ package wasmproc
 import (
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 	"github.com/iotaledger/wasp/packages/hashing"
@@ -14,6 +13,8 @@ import (
 	"github.com/iotaledger/wasp/packages/kv/codec"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/vm/wasmhost"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 var typeIds = map[int32]int32{

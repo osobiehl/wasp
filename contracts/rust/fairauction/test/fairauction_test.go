@@ -7,7 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/wasp/contracts/common"
 	"github.com/iotaledger/wasp/packages/coretypes"
@@ -16,11 +15,15 @@ import (
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/solo"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
-var auctioneer *ed25519.KeyPair
-var auctioneerAddr ledgerstate.Address
-var tokenColor ledgerstate.Color
+var (
+	auctioneer     *ed25519.KeyPair
+	auctioneerAddr ledgerstate.Address
+	tokenColor     ledgerstate.Color
+)
 
 func setupTest(t *testing.T) *solo.Chain {
 	chain := common.StartChainAndDeployWasmContractByName(t, ScName)

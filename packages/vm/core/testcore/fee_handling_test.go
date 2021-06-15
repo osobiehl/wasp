@@ -6,7 +6,6 @@ package testcore
 import (
 	"testing"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/solo"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
@@ -14,6 +13,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/eventlog"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func TestInit(t *testing.T) {
@@ -136,7 +137,6 @@ func TestFeesNoNeed(t *testing.T) {
 	chain.AssertTotalIotas(2 + 7)
 	chain.AssertAccountBalance(&chain.OriginatorAgentID, ledgerstate.ColorIOTA, 0)
 	env.AssertAddressBalance(chain.OriginatorAddress, ledgerstate.ColorIOTA, solo.Saldo-solo.ChainDustThreshold-2-7)
-
 }
 
 func TestFeesNotEnough(t *testing.T) {
@@ -169,5 +169,4 @@ func TestFeesNotEnough(t *testing.T) {
 	chain.AssertTotalIotas(2 + 7)
 	chain.AssertIotas(userAgentID, 0)
 	env.AssertAddressIotas(userAddr, solo.Saldo-7)
-
 }

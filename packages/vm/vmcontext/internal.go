@@ -3,7 +3,6 @@ package vmcontext
 import (
 	"fmt"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/vm/core/accounts"
@@ -12,6 +11,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/eventlog"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/iotaledger/wasp/packages/vm/processors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // creditToAccount deposits transfer from request to chain account of of the called contract

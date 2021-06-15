@@ -7,9 +7,10 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/solo"
 	"github.com/iotaledger/wasp/packages/vm/core"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/kv"
@@ -25,7 +26,6 @@ import (
 
 func checkRoots(t *testing.T, chain *cluster.Chain) {
 	chain.WithSCState(root.Interface.Hname(), func(host string, blockIndex uint32, state dict.Dict) bool {
-
 		require.EqualValues(t, []byte{0xFF}, state.MustGet(root.VarStateInitialized))
 
 		chid, _, _ := codec.DecodeChainID(state.MustGet(root.VarChainID))

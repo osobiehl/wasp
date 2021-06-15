@@ -7,10 +7,11 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/publisher"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // LogStateTransition also used in testing

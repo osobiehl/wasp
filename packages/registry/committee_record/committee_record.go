@@ -3,8 +3,9 @@ package committee_record
 import (
 	"fmt"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/marshalutil"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // CommitteeRecord represents committee information

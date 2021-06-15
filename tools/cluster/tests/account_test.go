@@ -5,7 +5,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client/chainclient"
 	"github.com/iotaledger/wasp/contracts/native/inccounter"
 	"github.com/iotaledger/wasp/packages/coretypes"
@@ -17,6 +16,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/iotaledger/wasp/tools/cluster"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func TestBasicAccounts(t *testing.T) {
@@ -253,7 +254,7 @@ func TestBasic2Accounts(t *testing.T) {
 	printAccounts(t, chain, "withdraw before")
 
 	// withdraw back 2 iotas to originator address
-	fmt.Printf("\norig addres from sigsheme: %s\n", originatorAddress.Base58())
+	fmt.Printf("\norig address from sigsheme: %s\n", originatorAddress.Base58())
 	originatorClient := chainclient.New(clu.GoshimmerClient(), clu.WaspClient(0), chain.ChainID, originatorSigScheme)
 	reqTx2, err := originatorClient.Post1Request(accounts.Interface.Hname(), coretypes.Hn(accounts.FuncWithdraw))
 	check(err, t)

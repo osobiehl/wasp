@@ -5,12 +5,14 @@ package sandbox_utils
 
 import (
 	"fmt"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+
+
 	"github.com/iotaledger/hive.go/crypto/ed25519"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
-type ed25519Util struct {
-}
+type ed25519Util struct{}
 
 func (u ed25519Util) ValidSignature(data []byte, pubKey []byte, signature []byte) bool {
 	pk, _, err := ed25519.PublicKeyFromBytes(pubKey)

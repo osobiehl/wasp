@@ -6,9 +6,10 @@ import (
 	"io"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/pkg/errors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func WriteByte(w io.Writer, val byte) error {

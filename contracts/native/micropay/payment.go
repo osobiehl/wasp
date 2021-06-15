@@ -5,9 +5,10 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/wasp/packages/util"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type Payment struct {

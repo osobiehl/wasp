@@ -8,12 +8,13 @@ import (
 	"io"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/marshalutil"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/util"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 const (
@@ -21,13 +22,11 @@ const (
 	description = "Block log contract"
 )
 
-var (
-	Interface = &coreutil.ContractInterface{
-		Name:        Name,
-		Description: description,
-		ProgramHash: hashing.HashStrings(Name),
-	}
-)
+var Interface = &coreutil.ContractInterface{
+	Name:        Name,
+	Description: description,
+	ProgramHash: hashing.HashStrings(Name),
+}
 
 func init() {
 	Interface.WithFunctions(initialize, []coreutil.ContractFunctionInterface{

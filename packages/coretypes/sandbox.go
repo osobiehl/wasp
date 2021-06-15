@@ -4,11 +4,12 @@
 package coretypes
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/dict"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // Sandbox is an interface given to the processor to access the VMContext

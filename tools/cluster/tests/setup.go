@@ -7,8 +7,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/iotaledger/goshimmer/client/wallet/packages/seed"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/client/chainclient"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/requestargs"
@@ -18,6 +16,9 @@ import (
 	clutest "github.com/iotaledger/wasp/tools/cluster/testutil"
 	"github.com/mr-tron/base58"
 	"github.com/stretchr/testify/require"
+
+	"github.com/iotaledger/goshimmer/client/wallet/packages/seed"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 var (

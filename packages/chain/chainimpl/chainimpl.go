@@ -20,8 +20,6 @@ import (
 	"github.com/iotaledger/wasp/packages/chain/statemgr"
 	"github.com/iotaledger/wasp/packages/state"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
-	txstream "github.com/iotaledger/goshimmer/packages/txstream/client"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/kvstore"
 	"github.com/iotaledger/hive.go/logger"
@@ -34,6 +32,9 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/processors"
 	"go.uber.org/atomic"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	txstream "github.com/iotaledger/goshimmer/packages/txstream/client"
 )
 
 type chainObj struct {
@@ -171,7 +172,6 @@ func (c *chainObj) processPeerMessage(msg *peering.PeerMessage) {
 	rdr := bytes.NewReader(msg.MsgData)
 
 	switch msg.MsgType {
-
 	case chain.MsgGetBlock:
 		msgt := &chain.GetBlockMsg{}
 		if err := msgt.Read(rdr); err != nil {

@@ -13,7 +13,6 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/chain"
@@ -21,6 +20,8 @@ import (
 	"github.com/iotaledger/wasp/plugins/database"
 	"github.com/iotaledger/wasp/plugins/peering"
 	"github.com/iotaledger/wasp/plugins/registry"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type Chains struct {

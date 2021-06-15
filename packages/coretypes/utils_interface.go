@@ -1,8 +1,9 @@
 package coretypes
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/hashing"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // Utils implement various utilities which are faster on host side than on wasm VM

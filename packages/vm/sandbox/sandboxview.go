@@ -4,13 +4,14 @@
 package sandbox
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/chainid"
 	"github.com/iotaledger/wasp/packages/kv"
 	"github.com/iotaledger/wasp/packages/kv/dict"
 	"github.com/iotaledger/wasp/packages/vm/sandbox/sandbox_utils"
 	"github.com/iotaledger/wasp/packages/vm/vmcontext"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type sandboxView struct {

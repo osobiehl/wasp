@@ -5,9 +5,10 @@ import (
 
 	"github.com/iotaledger/wasp/packages/kv"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/kv/buffered"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // VirtualState virtualized access to the chain's database

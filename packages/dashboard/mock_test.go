@@ -15,7 +15,6 @@ import (
 
 	"github.com/iotaledger/wasp/packages/coretypes/coreutil"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/hive.go/events"
 	"github.com/iotaledger/wasp/packages/chain"
@@ -33,6 +32,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/processors"
 	"github.com/labstack/echo/v4"
 	"go.dedis.ch/kyber/v3"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // waspServices is a mock implementation of the WaspServices interface
@@ -95,6 +96,7 @@ func (p *peeringNetworkProvider) PeerGroup(peerAddrs []string) (peering.GroupPro
 func (n *peeringNetworkProvider) PeerDomain(peerNetIDs []string) (peering.PeerDomainProvider, error) {
 	panic("not implemented")
 }
+
 func (p *peeringNetworkProvider) Attach(peeringID *peering.PeeringID, callback func(recv *peering.RecvEvent)) interface{} {
 	panic("not implemented")
 }
@@ -254,13 +256,13 @@ func (m *mockChain) GetCommitteeInfo() *chain.CommitteeInfo {
 		Quorum:        1,
 		QuorumIsAlive: true,
 		PeerStatus: []*chain.PeerStatus{
-			&chain.PeerStatus{
+			{
 				Index:     0,
 				PeeringID: "0",
 				IsSelf:    true,
 				Connected: true,
 			},
-			&chain.PeerStatus{
+			{
 				Index:     1,
 				PeeringID: "1",
 				IsSelf:    false,

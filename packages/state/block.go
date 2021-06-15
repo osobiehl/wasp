@@ -3,12 +3,16 @@ package state
 import (
 	"bytes"
 	"fmt"
-	"golang.org/x/xerrors"
 	"io"
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+	"golang.org/x/xerrors"
+
+	"golang.org/x/xerrors"
+
 	"github.com/iotaledger/wasp/packages/util"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type block struct {

@@ -12,9 +12,10 @@ import (
 
 	"github.com/iotaledger/hive.go/marshalutil"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/mr-tron/base58"
 	"golang.org/x/xerrors"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // AgentID represents address on the ledger with optional hname
@@ -94,7 +95,6 @@ func NewAgentIDFromString(s string) (*AgentID, error) {
 		return nil, xerrors.Errorf("NewAgentIDFromString: %v", err)
 	}
 	return NewAgentID(addr, hname), nil
-
 }
 
 // NewRandomAgentID creates random AgentID

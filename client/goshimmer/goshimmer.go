@@ -4,10 +4,11 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/iotaledger/goshimmer/client"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/parameters"
 	"github.com/iotaledger/wasp/packages/transaction"
+
+	"github.com/iotaledger/goshimmer/client"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 // Client is a wrapper for the official Goshimmer client, providing a cleaner interface
@@ -79,7 +80,7 @@ func (c *Client) GetConfirmedOutputs(address ledgerstate.Address) ([]ledgerstate
 func (c *Client) postTx(tx *ledgerstate.Transaction) error {
 	data := tx.Bytes()
 	if len(data) > parameters.MaxSerializedTransactionToGoshimmer {
-		return fmt.Errorf("size of serialized transation %d bytes > max of %d bytes: %s",
+		return fmt.Errorf("size of serialized transition %d bytes > max of %d bytes: %s",
 			len(data), parameters.MaxSerializedTransactionToGoshimmer, tx.ID())
 	}
 	_, err := c.api.PostTransaction(data)

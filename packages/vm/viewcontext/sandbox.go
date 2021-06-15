@@ -1,7 +1,6 @@
 package viewcontext
 
 import (
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/assert"
@@ -15,6 +14,8 @@ import (
 	"github.com/iotaledger/wasp/packages/vm/core/eventlog"
 	"github.com/iotaledger/wasp/packages/vm/core/root"
 	"github.com/iotaledger/wasp/packages/vm/sandbox/sandbox_utils"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 var logDefault *logger.Logger

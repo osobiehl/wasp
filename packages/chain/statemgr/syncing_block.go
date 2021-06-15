@@ -6,11 +6,12 @@ package statemgr
 import (
 	"time"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/logger"
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/hashing"
 	"github.com/iotaledger/wasp/packages/state"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type syncingBlocks struct {

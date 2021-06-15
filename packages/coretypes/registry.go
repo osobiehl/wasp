@@ -12,8 +12,9 @@ import (
 
 	"github.com/iotaledger/wasp/packages/registry/committee_record"
 
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/wasp/packages/tcrypto"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 
 	"github.com/iotaledger/wasp/packages/hashing"
 	"go.dedis.ch/kyber/v3"

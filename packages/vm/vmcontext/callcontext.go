@@ -2,10 +2,13 @@ package vmcontext
 
 import (
 	"fmt"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
+
+
 	"github.com/iotaledger/wasp/packages/coretypes"
 	"github.com/iotaledger/wasp/packages/coretypes/request"
 	"github.com/iotaledger/wasp/packages/kv/dict"
+
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 func (vmctx *VMContext) pushCallContextWithTransfer(contract coretypes.Hname, params dict.Dict, transfer *ledgerstate.ColoredBalances) error {

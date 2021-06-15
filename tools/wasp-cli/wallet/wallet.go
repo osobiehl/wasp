@@ -1,14 +1,15 @@
 package wallet
 
 import (
-	"github.com/iotaledger/goshimmer/client/wallet/packages/seed"
-	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 	"github.com/iotaledger/hive.go/crypto/ed25519"
 	"github.com/iotaledger/wasp/tools/wasp-cli/config"
 	"github.com/iotaledger/wasp/tools/wasp-cli/log"
 	"github.com/mr-tron/base58"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
+
+	"github.com/iotaledger/goshimmer/client/wallet/packages/seed"
+	"github.com/iotaledger/goshimmer/packages/ledgerstate"
 )
 
 type WalletConfig struct {

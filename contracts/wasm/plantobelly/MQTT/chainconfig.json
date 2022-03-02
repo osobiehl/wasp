@@ -1,0 +1,9 @@
+ { 
+  "seed": "2UcFnXuJdPqccHFynXakfzgpWYqwrGwJfarNRu4FQZnm",
+  "waspWebSocketUrl": "ws://127.0.0.1:9090/chain/%chainId/ws",
+  "waspApiUrl": "http://127.0.0.1:9090",
+  "goshimmerApiUrl": "http://127.0.0.1:8080",
+  "chainId": "nBikJGmc5V9mtTbUxTYiFApigcY6w5BRUSAgWpUE8ew6",
+  "googleAnalytics": null,
+  "contractName": "plantobelly"
+}

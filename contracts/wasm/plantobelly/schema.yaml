@@ -1,0 +1,217 @@
+name: plantobelly
+description: plantobelly smart contract responsible for handling plants
+
+typedefs:
+
+  Ids: Hash[]
+  Plants: Plant[]
+structs:
+  Geolocation:
+    lattitude: String
+    longitude: String
+  Plant: 
+    description: String // general description of plant
+    manufacturer: AgentID // manufacturer wallet for payment
+    owner: AgentID // owner of plant token
+    waterTarget: Int32 // level of water 
+    waterThreshold: Int32 // min. level of water to start watering
+    currentWater: Int32 // current level of water
+    id: Hash
+    funds: Uint64
+    lattitude: String // geolocation structs don't work WOW
+    longitude: String
+    name: String
+    reward: Uint64 // the reward given for watering the plant
+    covered: Bool
+    claimed: Bool // whether plant has been claimed
+    claimId: Hash // used to index claims (for scalability purposes)
+    active: Bool
+    activeReason: Uint32 // 0 -> default, 1 -> owner deactivated, 2 -> weather deactivated, 3 -> owner deactivated
+
+  Claim:
+    id: Hash
+    recordedWaterLevel: Int32
+    claimer: AgentID
+    deposit: Uint64
+    plantId: Hash
+    timestamp: Uint64
+
+events: 
+  claim:
+    id: Hash
+    plantId: Hash
+    claimer: AgentID
+  mint:
+    balance: Uint64
+    owner: AgentID
+    tokenId: Hash
+  resolution:
+    claimer: AgentID
+    plantId: Hash
+    result: Uint32 // 0 successful, 1 user failure, 2 contract (weather) failure, 3 for any
+    reward: Uint64
+
+
+state:
+  owner: AgentID // current owner of this smart contract
+  plants: map[Hash]Plant
+  plantIds: Hash[] // list of all plant IDs
+  claims: map[Hash]Claim
+  claimIds: Hash[] // list of all claim IDs
+
+  ownedPlants: map[AgentID]Ids // plants Ids owned by a specific owner
+  plantOwners: AgentID[] // list of all owners of at least one plant
+
+
+  
+  allowedPlantOracles: AgentID[] // list of all accounts allowed to send plant details
+  allowedWeatherOracles: AgentID[] // list of accoutns allowed to send weather details
+
+funcs:
+  init:
+    params:
+      owner: AgentID? // optional owner of this smart contract
+  setOwner:
+    access: owner // current owner of this smart contract
+    params:
+      owner: AgentID // new owner of this smart contract
+  setPlantWater:
+    # access: allowedPlantOracles
+    params:
+      plantId: Hash
+      waterLevel: Int32
+  editOwnPlant:
+    # access: plantOwners
+    params:
+      description: String // general description of plant
+      location: Geolocation
+      name: String
+      reward: Uint64 // the reward given for watering the plant
+      covered: Bool
+      waterTarget: Int32 // level of water 
+
+  mintPlantRaw:
+    access: owner
+    params:
+      description: String // general description of plant
+      manufacturer: AgentID // manufacturer wallet for payment
+      owner: AgentID // owner of plant token
+      waterTarget: Int32 // level of water 
+      waterThreshold: Int32 // min. level of water to start watering
+      currentWater: Int32 // current level of water
+      id: Hash
+      funds: Uint64
+      lattitude: String // geolocation structs don't work WOW
+      longitude: String
+      name: String
+      payReward: Uint64 // the reward given for watering the plant
+      covered: Bool
+      claimed: Bool // whether plant has been claimed
+      mintClaimId: Hash // used to index claims (for scalability purposes)
+      active: Bool
+      activeReason: Uint32 // 0 -> default, 1 -> owner deactivated, 2 -> weather deactivated, 3 -> owner deactivated
+
+  mintPlant:
+    access: owner
+    params:
+      newPlant: Plant
+
+  activatePlantOwner:
+    # access: plantOwners
+    params:
+      plantId: Hash
+      newState: Bool
+  
+  setPlantWeatherTimeout:
+    # access: allowedWeatherOracles
+    params:
+      plantId: Hash
+      timeoutDuration: Bool
+
+    
+
+  addPlantFunds:
+    # accesss: plantOwners
+    params: 
+      plantId: Hash //plant ID
+      value: Uint64 // amount added to plant
+
+  interruptWeatherEvent:
+    # access: allowedWeatherOracles // weather server sending data OR weather smart contract (later)
+    params:
+      plantId: Hash //ID of plant affected
+      duration: Uint64 //expected duration of weather disruption
+
+  resolveClaim:
+    access: self // internal claim resolution function, resolving a resolved claim is defined behaviour
+    params:
+      id: Hash // claim ID
+
+  payClaimer:
+    access: self
+    params:
+      to: AgentID
+      amount: Uint64
+
+  claimWatering:
+    params: 
+      plantId: Hash
+      timestamp: Uint64  // must contain deposit, owner taken from transaction
+
+  addWeatherOracle:
+    access: owner
+    params:
+      oracleId: AgentID
+  
+  addPlantOracle:
+    access: owner
+    params:
+      oracleId: AgentID
+
+views:
+  getPlantOracles:
+    results:
+      oracles: AgentID[]
+
+  getWeatherOracles:
+    results:
+      oracles: AgentID[]
+
+  getPlants:
+    results:
+      plants: Plant[]
+      
+  getPlant: 
+    params:
+      plantId: Hash
+    results:
+      plant: Plant
+
+  getClaims:
+    results:
+      claims: Claim[]
+
+  getClaim: 
+    params:
+      reqClaimId: Claim
+    results:
+      claim: Claim
+
+  getPlantsFromOwner:
+    params:
+      ownerId: AgentID
+    results:
+      plants: Plant[]
+
+  isPlantOwner:
+    params:
+      reqOwnerId: AgentID
+      reqPlantId: AgentID
+    results:
+      isOwner: Bool
+
+
+
+  getOwner:
+    results:
+      owner: AgentID // current owner of this smart contract

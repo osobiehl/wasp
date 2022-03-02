@@ -15,6 +15,7 @@ members = [
     "testwasmlib",
     "timestamp",
     "tokenregistry",
+    "plantobelly",
 ]
 
 [profile.release]

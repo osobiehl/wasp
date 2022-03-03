@@ -9,21 +9,21 @@ import * as wasmtypes from "wasmlib/wasmtypes";
 
 export class Claim {
 	claimer            : wasmtypes.ScAgentID = wasmtypes.agentIDFromBytes([]); 
-	deposit            : i64 = 0; 
+	deposit            : u64 = 0; 
 	id                 : wasmtypes.ScHash = new wasmtypes.ScHash(); 
 	plantId            : wasmtypes.ScHash = new wasmtypes.ScHash(); 
 	recordedWaterLevel : i32 = 0; 
-	timestamp          : i64 = 0; 
+	timestamp          : u64 = 0; 
 
 	static fromBytes(buf: u8[]): Claim {
 		const dec = new wasmtypes.WasmDecoder(buf);
 		const data = new Claim();
 		data.claimer            = wasmtypes.agentIDDecode(dec);
-		data.deposit            = wasmtypes.int64Decode(dec);
+		data.deposit            = wasmtypes.uint64Decode(dec);
 		data.id                 = wasmtypes.hashDecode(dec);
 		data.plantId            = wasmtypes.hashDecode(dec);
 		data.recordedWaterLevel = wasmtypes.int32Decode(dec);
-		data.timestamp          = wasmtypes.int64Decode(dec);
+		data.timestamp          = wasmtypes.uint64Decode(dec);
 		dec.close();
 		return data;
 	}
@@ -31,11 +31,11 @@ export class Claim {
 	bytes(): u8[] {
 		const enc = new wasmtypes.WasmEncoder();
 		wasmtypes.agentIDEncode(enc, this.claimer);
-		wasmtypes.int64Encode(enc, this.deposit);
+		wasmtypes.uint64Encode(enc, this.deposit);
 		wasmtypes.hashEncode(enc, this.id);
 		wasmtypes.hashEncode(enc, this.plantId);
 		wasmtypes.int32Encode(enc, this.recordedWaterLevel);
-		wasmtypes.int64Encode(enc, this.timestamp);
+		wasmtypes.uint64Encode(enc, this.timestamp);
 		return enc.buf();
 	}
 }
@@ -129,14 +129,14 @@ export class Plant {
 	covered        : bool = false; 
 	currentWater   : i32 = 0;  // current level of water
 	description    : string = "";  // general description of plant
-	funds          : i64 = 0; 
+	funds          : u64 = 0; 
 	id             : wasmtypes.ScHash = new wasmtypes.ScHash(); 
 	lattitude      : string = "";  // geolocation structs don't work WOW
 	longitude      : string = ""; 
 	manufacturer   : wasmtypes.ScAgentID = wasmtypes.agentIDFromBytes([]);  // manufacturer wallet for payment
 	name           : string = ""; 
 	owner          : wasmtypes.ScAgentID = wasmtypes.agentIDFromBytes([]);  // owner of plant token
-	reward         : i64 = 0;  // the reward given for watering the plant
+	reward         : u64 = 0;  // the reward given for watering the plant
 	waterTarget    : i32 = 0;  // level of water
 	waterThreshold : i32 = 0;  // min. level of water to start watering
 
@@ -150,14 +150,14 @@ export class Plant {
 		data.covered        = wasmtypes.boolDecode(dec);
 		data.currentWater   = wasmtypes.int32Decode(dec);
 		data.description    = wasmtypes.stringDecode(dec);
-		data.funds          = wasmtypes.int64Decode(dec);
+		data.funds          = wasmtypes.uint64Decode(dec);
 		data.id             = wasmtypes.hashDecode(dec);
 		data.lattitude      = wasmtypes.stringDecode(dec);
 		data.longitude      = wasmtypes.stringDecode(dec);
 		data.manufacturer   = wasmtypes.agentIDDecode(dec);
 		data.name           = wasmtypes.stringDecode(dec);
 		data.owner          = wasmtypes.agentIDDecode(dec);
-		data.reward         = wasmtypes.int64Decode(dec);
+		data.reward         = wasmtypes.uint64Decode(dec);
 		data.waterTarget    = wasmtypes.int32Decode(dec);
 		data.waterThreshold = wasmtypes.int32Decode(dec);
 		dec.close();
@@ -173,14 +173,14 @@ export class Plant {
 		wasmtypes.boolEncode(enc, this.covered);
 		wasmtypes.int32Encode(enc, this.currentWater);
 		wasmtypes.stringEncode(enc, this.description);
-		wasmtypes.int64Encode(enc, this.funds);
+		wasmtypes.uint64Encode(enc, this.funds);
 		wasmtypes.hashEncode(enc, this.id);
 		wasmtypes.stringEncode(enc, this.lattitude);
 		wasmtypes.stringEncode(enc, this.longitude);
 		wasmtypes.agentIDEncode(enc, this.manufacturer);
 		wasmtypes.stringEncode(enc, this.name);
 		wasmtypes.agentIDEncode(enc, this.owner);
-		wasmtypes.int64Encode(enc, this.reward);
+		wasmtypes.uint64Encode(enc, this.reward);
 		wasmtypes.int32Encode(enc, this.waterTarget);
 		wasmtypes.int32Encode(enc, this.waterThreshold);
 		return enc.buf();

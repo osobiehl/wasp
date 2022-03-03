@@ -5,6 +5,5 @@
 // >>>> DO NOT CHANGE THIS FILE! <<<<
 // Change the json schema instead
 
-export * from "./plantobelly";
 export * from "./events";
 export * from "./service";

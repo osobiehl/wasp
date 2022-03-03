@@ -24,17 +24,20 @@ func funcEditOwnPlant(ctx wasmlib.ScFuncContext, f *EditOwnPlantContext) {
 }
 
 func funcInit(ctx wasmlib.ScFuncContext, f *InitContext) {
-	if f.Params.Owner().Exists() {
-		f.State.Owner().SetValue(f.Params.Owner().Value())
-		return
-	}
-	f.State.Owner().SetValue(ctx.ContractCreator())
+    if f.Params.Owner().Exists() {
+        f.State.Owner().SetValue(f.Params.Owner().Value())
+        return
+    }
+    f.State.Owner().SetValue(ctx.ContractCreator())
 }
 
 func funcInterruptWeatherEvent(ctx wasmlib.ScFuncContext, f *InterruptWeatherEventContext) {
 }
 
 func funcMintPlant(ctx wasmlib.ScFuncContext, f *MintPlantContext) {
+}
+
+func funcMintPlantRaw(ctx wasmlib.ScFuncContext, f *MintPlantRawContext) {
 }
 
 func funcPayClaimer(ctx wasmlib.ScFuncContext, f *PayClaimerContext) {
@@ -79,7 +82,4 @@ func viewGetWeatherOracles(ctx wasmlib.ScViewContext, f *GetWeatherOraclesContex
 }
 
 func viewIsPlantOwner(ctx wasmlib.ScViewContext, f *IsPlantOwnerContext) {
-}
-
-func funcMintPlantRaw(ctx wasmlib.ScFuncContext, f *MintPlantRawContext) {
 }

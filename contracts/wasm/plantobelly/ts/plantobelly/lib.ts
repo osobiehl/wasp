@@ -76,10 +76,6 @@ export function on_load(): void {
 function funcActivatePlantOwnerThunk(ctx: wasmlib.ScFuncContext): void {
 	ctx.log("plantobelly.funcActivatePlantOwner");
 	let f = new sc.ActivatePlantOwnerContext();
-	const access = f.state.plantOwners();
-	ctx.require(access.exists(), "access not set: plantOwners");
-	ctx.require(ctx.caller().equals(access.value()), "no permission");
-
 	ctx.require(f.params.newState().exists(), "missing mandatory newState");
 	ctx.require(f.params.plantId().exists(), "missing mandatory plantId");
 	sc.funcActivatePlantOwner(ctx, f);
@@ -131,10 +127,6 @@ function funcClaimWateringThunk(ctx: wasmlib.ScFuncContext): void {
 function funcEditOwnPlantThunk(ctx: wasmlib.ScFuncContext): void {
 	ctx.log("plantobelly.funcEditOwnPlant");
 	let f = new sc.EditOwnPlantContext();
-	const access = f.state.plantOwners();
-	ctx.require(access.exists(), "access not set: plantOwners");
-	ctx.require(ctx.caller().equals(access.value()), "no permission");
-
 	ctx.require(f.params.covered().exists(), "missing mandatory covered");
 	ctx.require(f.params.description().exists(), "missing mandatory description");
 	ctx.require(f.params.name().exists(), "missing mandatory name");
@@ -154,12 +146,6 @@ function funcInitThunk(ctx: wasmlib.ScFuncContext): void {
 function funcInterruptWeatherEventThunk(ctx: wasmlib.ScFuncContext): void {
 	ctx.log("plantobelly.funcInterruptWeatherEvent");
 	let f = new sc.InterruptWeatherEventContext();
-
-	// weather server sending data OR weather smart contract (later)
-	const access = f.state.allowedWeatherOracles();
-	ctx.require(access.exists(), "access not set: allowedWeatherOracles");
-	ctx.require(ctx.caller().equals(access.value()), "no permission");
-
 	ctx.require(f.params.duration().exists(), "missing mandatory duration");
 	ctx.require(f.params.plantId().exists(), "missing mandatory plantId");
 	sc.funcInterruptWeatherEvent(ctx, f);
@@ -186,7 +172,6 @@ function funcMintPlantRawThunk(ctx: wasmlib.ScFuncContext): void {
 
 	ctx.require(f.params.active().exists(), "missing mandatory active");
 	ctx.require(f.params.activeReason().exists(), "missing mandatory activeReason");
-	ctx.require(f.params.claimId().exists(), "missing mandatory claimId");
 	ctx.require(f.params.claimed().exists(), "missing mandatory claimed");
 	ctx.require(f.params.covered().exists(), "missing mandatory covered");
 	ctx.require(f.params.currentWater().exists(), "missing mandatory currentWater");
@@ -196,6 +181,7 @@ function funcMintPlantRawThunk(ctx: wasmlib.ScFuncContext): void {
 	ctx.require(f.params.lattitude().exists(), "missing mandatory lattitude");
 	ctx.require(f.params.longitude().exists(), "missing mandatory longitude");
 	ctx.require(f.params.manufacturer().exists(), "missing mandatory manufacturer");
+	ctx.require(f.params.mintClaimId().exists(), "missing mandatory mintClaimId");
 	ctx.require(f.params.name().exists(), "missing mandatory name");
 	ctx.require(f.params.owner().exists(), "missing mandatory owner");
 	ctx.require(f.params.payReward().exists(), "missing mandatory payReward");
@@ -254,10 +240,6 @@ function funcSetPlantWaterThunk(ctx: wasmlib.ScFuncContext): void {
 function funcSetPlantWeatherTimeoutThunk(ctx: wasmlib.ScFuncContext): void {
 	ctx.log("plantobelly.funcSetPlantWeatherTimeout");
 	let f = new sc.SetPlantWeatherTimeoutContext();
-	const access = f.state.allowedWeatherOracles();
-	ctx.require(access.exists(), "access not set: allowedWeatherOracles");
-	ctx.require(ctx.caller().equals(access.value()), "no permission");
-
 	ctx.require(f.params.plantId().exists(), "missing mandatory plantId");
 	ctx.require(f.params.timeoutDuration().exists(), "missing mandatory timeoutDuration");
 	sc.funcSetPlantWeatherTimeout(ctx, f);

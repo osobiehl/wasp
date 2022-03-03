@@ -1,10 +1,10 @@
 import {Configuration, IConfiguration, ServiceClient,
-    ClientFunc, ClientView, Service, EventHandlers, Encoder, Decoder, } from 'wasmclient';
+    ClientFunc, ClientView, Service, Encoder, Decoder, } from 'wasmclient';
 
 
 import chainconfig from '../chainconfig.json';
 import {Buffer} from 'wasmclient/buffer'
-import {ActivatePlantOwnerFunc, MintPlantRawFunc, eventHandlers, } from './plantobellyclient'
+import {ActivatePlantOwnerFunc, MintPlantRawFunc } from './plantobellyclient'
 import {blake2b} from 'blakejs';
 import {Base58} from 'wasmclient/crypto';
 
@@ -30,7 +30,7 @@ let decoder = new Decoder();
 
 let conf = new Configuration(iconf)
 let sc = new ServiceClient(conf)
-let svc = new Service(sc,  HashAsNumber(chainconfig.contractName) , eventHandlers );
+let svc = new Service(sc,  HashAsNumber(chainconfig.contractName));
 
 
 function getPK(): string{
@@ -42,7 +42,7 @@ function CreateNewPlant(f: MintPlantRawFunc){
 
     f.active(true);
     f.activeReason(0);
-    f.claimId('abcdef');
+    f.mintClaimId('abcdef');
     f.claimed(false)
     f.covered(false)
     f.currentWater(0)

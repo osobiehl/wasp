@@ -11,8 +11,6 @@ import * as events from "./events"
 const ArgActive = "active";
 const ArgActiveReason = "activeReason";
 const ArgAmount = "amount";
-const ArgClaimID = "claimID";
-const ArgClaimId = "claimId";
 const ArgClaimed = "claimed";
 const ArgCovered = "covered";
 const ArgCurrentWater = "currentWater";
@@ -24,6 +22,7 @@ const ArgLattitude = "lattitude";
 const ArgLocation = "location";
 const ArgLongitude = "longitude";
 const ArgManufacturer = "manufacturer";
+const ArgMintClaimId = "mintClaimId";
 const ArgName = "name";
 const ArgNewPlant = "newPlant";
 const ArgNewState = "newState";
@@ -32,6 +31,7 @@ const ArgOwner = "owner";
 const ArgOwnerId = "ownerId";
 const ArgPayReward = "payReward";
 const ArgPlantId = "plantId";
+const ArgReqClaimId = "reqClaimId";
 const ArgReqOwnerId = "reqOwnerId";
 const ArgReqPlantId = "reqPlantId";
 const ArgReward = "reward";
@@ -130,8 +130,8 @@ export class ClaimWateringFunc extends wasmclient.ClientFunc {
 		this.args.set(ArgPlantId, this.args.fromHash(v));
 	}
 	
-	public timestamp(v: wasmclient.Int64): void {
-		this.args.set(ArgTimestamp, this.args.fromInt64(v));
+	public timestamp(v: wasmclient.Uint64): void {
+		this.args.set(ArgTimestamp, this.args.fromUint64(v));
 	}
 	
 	public async post(): Promise<wasmclient.RequestID> {
@@ -213,21 +213,20 @@ export class InterruptWeatherEventFunc extends wasmclient.ClientFunc {
 		return await super.post(0xc42865d1, this.args);
 	}
 }
-//TODO WAIT FOR FIX
 
 ///////////////////////////// mintPlant /////////////////////////////
 
-// export class MintPlantFunc extends wasmclient.ClientFunc {
-// 	private args: wasmclient.Arguments = new wasmclient.Arguments();
+export class MintPlantFunc extends wasmclient.ClientFunc {
+	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-// 	public newPlant(v: ): void {
-// 		this.args.set(ArgNewPlant, this.args.fromPlant(v));
-// 	}
+	// public newPlant(v: ): void {
+	// 	this.args.set(ArgNewPlant, this.args.fromPlant(v));
+	// }
 	
-// 	public async post(): Promise<wasmclient.RequestID> {
-// 		return await super.post(0x6aeb84a1, this.args);
-// 	}
-// }
+	public async post(): Promise<wasmclient.RequestID> {
+		return await super.post(0x6aeb84a1, this.args);
+	}
+}
 
 ///////////////////////////// mintPlantRaw /////////////////////////////
 
@@ -240,10 +239,6 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 	
 	public activeReason(v: wasmclient.Uint32): void {
 		this.args.set(ArgActiveReason, this.args.fromUint32(v));
-	}
-	
-	public claimId(v: wasmclient.Hash): void {
-		this.args.set(ArgClaimId, this.args.fromHash(v));
 	}
 	
 	public claimed(v: boolean): void {
@@ -262,8 +257,8 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 		this.args.set(ArgDescription, this.args.fromString(v));
 	}
 	
-	public funds(v: wasmclient.Int64): void {
-		this.args.set(ArgFunds, this.args.fromInt64(v));
+	public funds(v: wasmclient.Uint64): void {
+		this.args.set(ArgFunds, this.args.fromUint64(v));
 	}
 	
 	public id(v: wasmclient.Hash): void {
@@ -282,6 +277,10 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 		this.args.set(ArgManufacturer, this.args.fromAgentID(v));
 	}
 	
+	public mintClaimId(v: wasmclient.Hash): void {
+		this.args.set(ArgMintClaimId, this.args.fromHash(v));
+	}
+	
 	public name(v: string): void {
 		this.args.set(ArgName, this.args.fromString(v));
 	}
@@ -290,8 +289,8 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 		this.args.set(ArgOwner, this.args.fromAgentID(v));
 	}
 	
-	public payReward(v: wasmclient.Int64): void {
-		this.args.set(ArgPayReward, this.args.fromInt64(v));
+	public payReward(v: wasmclient.Uint64): void {
+		this.args.set(ArgPayReward, this.args.fromUint64(v));
 	}
 	
 	public waterTarget(v: wasmclient.Int32): void {
@@ -305,7 +304,6 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 	public async post(): Promise<wasmclient.RequestID> {
 		this.args.mandatory(ArgActive);
 		this.args.mandatory(ArgActiveReason);
-		this.args.mandatory(ArgClaimId);
 		this.args.mandatory(ArgClaimed);
 		this.args.mandatory(ArgCovered);
 		this.args.mandatory(ArgCurrentWater);
@@ -315,6 +313,7 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 		this.args.mandatory(ArgLattitude);
 		this.args.mandatory(ArgLongitude);
 		this.args.mandatory(ArgManufacturer);
+		this.args.mandatory(ArgMintClaimId);
 		this.args.mandatory(ArgName);
 		this.args.mandatory(ArgOwner);
 		this.args.mandatory(ArgPayReward);
@@ -329,8 +328,8 @@ export class MintPlantRawFunc extends wasmclient.ClientFunc {
 export class PayClaimerFunc extends wasmclient.ClientFunc {
 	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-	public amount(v: wasmclient.Int64): void {
-		this.args.set(ArgAmount, this.args.fromInt64(v));
+	public amount(v: wasmclient.Uint64): void {
+		this.args.set(ArgAmount, this.args.fromUint64(v));
 	}
 	
 	public to(v: wasmclient.AgentID): void {
@@ -416,44 +415,44 @@ export class SetPlantWeatherTimeoutFunc extends wasmclient.ClientFunc {
 
 ///////////////////////////// getClaim /////////////////////////////
 
-// export class GetClaimView extends wasmclient.ClientView {
-// 	private args: wasmclient.Arguments = new wasmclient.Arguments();
+export class GetClaimView extends wasmclient.ClientView {
+	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-// 	public claimID(v: ): void {
-// 		this.args.set(ArgClaimID, this.args.fromClaim(v));
-// 	}
+	public reqClaimId(v: ): void {
+		this.args.set(ArgReqClaimId, this.args.fromClaim(v));
+	}
 
-// 	public async call(): Promise<GetClaimResults> {
-// 		const res = new GetClaimResults();
-// 		await this.callView("getClaim", this.args, res);
-// 		return res;
-// 	}
-// }
+	public async call(): Promise<GetClaimResults> {
+		const res = new GetClaimResults();
+		await this.callView("getClaim", this.args, res);
+		return res;
+	}
+}
 
-// export class GetClaimResults extends wasmclient.Results {
+export class GetClaimResults extends wasmclient.Results {
 
-// 	claim():  {
-// 		return this.toClaim(this.get(ResClaim));
-// 	}
-// }
+	claim(): Claim {
+		return Claim.fromBytes(this.get(ResClaim));
+	}
+}
 
 ///////////////////////////// getClaims /////////////////////////////
 
-// export class GetClaimsView extends wasmclient.ClientView {
+export class GetClaimsView extends wasmclient.ClientView {
 
-// 	public async call(): Promise<GetClaimsResults> {
-// 		const res = new GetClaimsResults();
-// 		await this.callView("getClaims", null, res);
-// 		return res;
-// 	}
-// }
+	public async call(): Promise<GetClaimsResults> {
+		const res = new GetClaimsResults();
+		await this.callView("getClaims", null, res);
+		return res;
+	}
+}
 
-// export class GetClaimsResults extends wasmclient.Results {
+export class GetClaimsResults extends wasmclient.Results {
 
-// 	claims():  {
-// 		return this.toClaim(this.get(ResClaims));
-// 	}
-// }
+	claims(): Claim {
+		return Claim.fromBytes(this.get(ResClaims));
+	}
+}
 
 ///////////////////////////// getOwner /////////////////////////////
 
@@ -475,27 +474,27 @@ export class GetOwnerResults extends wasmclient.Results {
 
 ///////////////////////////// getPlant /////////////////////////////
 
-// export class GetPlantView extends wasmclient.ClientView {
-// 	private args: wasmclient.Arguments = new wasmclient.Arguments();
+export class GetPlantView extends wasmclient.ClientView {
+	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-// 	public plantId(v: wasmclient.Hash): void {
-// 		this.args.set(ArgPlantId, this.args.fromHash(v));
-// 	}
+	public plantId(v: wasmclient.Hash): void {
+		this.args.set(ArgPlantId, this.args.fromHash(v));
+	}
 
-// 	public async call(): Promise<GetPlantResults> {
-// 		this.args.mandatory(ArgPlantId);
-// 		const res = new GetPlantResults();
-// 		await this.callView("getPlant", this.args, res);
-// 		return res;
-// 	}
-// }
+	public async call(): Promise<GetPlantResults> {
+		this.args.mandatory(ArgPlantId);
+		const res = new GetPlantResults();
+		await this.callView("getPlant", this.args, res);
+		return res;
+	}
+}
 
-// export class GetPlantResults extends wasmclient.Results {
+export class GetPlantResults extends wasmclient.Results {
 
-// 	plant():  {
-// 		return this.toPlant(this.get(ResPlant));
-// 	}
-// }
+	plant(): Plant {
+		return Plant.fromBytes(this.get(ResPlant));
+	}
+}
 
 ///////////////////////////// getPlantOracles /////////////////////////////
 
@@ -517,45 +516,45 @@ export class GetPlantOraclesResults extends wasmclient.Results {
 
 ///////////////////////////// getPlants /////////////////////////////
 
-// export class GetPlantsView extends wasmclient.ClientView {
+export class GetPlantsView extends wasmclient.ClientView {
 
-// 	public async call(): Promise<GetPlantsResults> {
-// 		const res = new GetPlantsResults();
-// 		await this.callView("getPlants", null, res);
-// 		return res;
-// 	}
-// }
+	public async call(): Promise<GetPlantsResults> {
+		const res = new GetPlantsResults();
+		await this.callView("getPlants", null, res);
+		return res;
+	}
+}
 
-// export class GetPlantsResults extends wasmclient.Results {
+export class GetPlantsResults extends wasmclient.Results {
 
-// 	plants():  {
-// 		return this.toPlant(this.get(ResPlants));
-// 	}
-// }
+	plants(): Plant {
+		return Plant.fromBytes(this.get(ResPlants));
+	}
+}
 
 ///////////////////////////// getPlantsFromOwner /////////////////////////////
 
-// export class GetPlantsFromOwnerView extends wasmclient.ClientView {
-// 	private args: wasmclient.Arguments = new wasmclient.Arguments();
+export class GetPlantsFromOwnerView extends wasmclient.ClientView {
+	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-// 	public ownerId(v: wasmclient.AgentID): void {
-// 		this.args.set(ArgOwnerId, this.args.fromAgentID(v));
-// 	}
+	public ownerId(v: wasmclient.AgentID): void {
+		this.args.set(ArgOwnerId, this.args.fromAgentID(v));
+	}
 
-// 	public async call(): Promise<GetPlantsFromOwnerResults> {
-// 		this.args.mandatory(ArgOwnerId);
-// 		const res = new GetPlantsFromOwnerResults();
-// 		await this.callView("getPlantsFromOwner", this.args, res);
-// 		return res;
-// 	}
-// }
+	public async call(): Promise<GetPlantsFromOwnerResults> {
+		this.args.mandatory(ArgOwnerId);
+		const res = new GetPlantsFromOwnerResults();
+		await this.callView("getPlantsFromOwner", this.args, res);
+		return res;
+	}
+}
 
-// export class GetPlantsFromOwnerResults extends wasmclient.Results {
+export class GetPlantsFromOwnerResults extends wasmclient.Results {
 
-// 	plants():  {
-// 		return this.toPlant(this.get(ResPlants));
-// 	}
-// }
+	plants(): Plant {
+		return Plant.fromBytes(this.get(ResPlants));
+	}
+}
 
 ///////////////////////////// getWeatherOracles /////////////////////////////
 
@@ -609,7 +608,11 @@ export class IsPlantOwnerResults extends wasmclient.Results {
 export class PlantobellyService extends wasmclient.Service {
 
 	public constructor(cl: wasmclient.ServiceClient) {
-		super(cl, 0x1eaa52f2, events.eventHandlers);
+		super(cl, 0x1eaa52f2);
+	}
+
+	public newEventHandler(): events.PlantobellyEvents {
+		return new events.PlantobellyEvents();
 	}
 
 	public activatePlantOwner(): ActivatePlantOwnerFunc {
@@ -644,9 +647,9 @@ export class PlantobellyService extends wasmclient.Service {
 		return new InterruptWeatherEventFunc(this);
 	}
 
-	// public mintPlant(): MintPlantFunc {
-	// 	return new MintPlantFunc(this);
-	// }
+	public mintPlant(): MintPlantFunc {
+		return new MintPlantFunc(this);
+	}
 
 	public mintPlantRaw(): MintPlantRawFunc {
 		return new MintPlantRawFunc(this);
@@ -672,33 +675,33 @@ export class PlantobellyService extends wasmclient.Service {
 		return new SetPlantWeatherTimeoutFunc(this);
 	}
 
-	// public getClaim(): GetClaimView {
-	// 	return new GetClaimView(this);
-	// }
+	public getClaim(): GetClaimView {
+		return new GetClaimView(this);
+	}
 
-	// public getClaims(): GetClaimsView {
-	// 	return new GetClaimsView(this);
-	// }
+	public getClaims(): GetClaimsView {
+		return new GetClaimsView(this);
+	}
 
-	// public getOwner(): GetOwnerView {
-	// 	return new GetOwnerView(this);
-	// }
+	public getOwner(): GetOwnerView {
+		return new GetOwnerView(this);
+	}
 
-	// public getPlant(): GetPlantView {
-	// 	return new GetPlantView(this);
-	// }
+	public getPlant(): GetPlantView {
+		return new GetPlantView(this);
+	}
 
 	public getPlantOracles(): GetPlantOraclesView {
 		return new GetPlantOraclesView(this);
 	}
 
-	// public getPlants(): GetPlantsView {
-	// 	return new GetPlantsView(this);
-	// }
+	public getPlants(): GetPlantsView {
+		return new GetPlantsView(this);
+	}
 
-	// public getPlantsFromOwner(): GetPlantsFromOwnerView {
-	// 	return new GetPlantsFromOwnerView(this);
-	// }
+	public getPlantsFromOwner(): GetPlantsFromOwnerView {
+		return new GetPlantsFromOwnerView(this);
+	}
 
 	public getWeatherOracles(): GetWeatherOraclesView {
 		return new GetWeatherOraclesView(this);

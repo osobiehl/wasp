@@ -229,6 +229,7 @@ pub fn func_claim_watering(ctx: &ScFuncContext, f: &ClaimWateringContext) {
     new_f.params.id().set_value(&new_claim.id );
     ctx.log("setting DELAY! PLANT SUCCESSFULLY CLAIMED@!");
     new_f.func.delay(TEST_DELAY_PERIOD).transfer_iotas(1).post();
+    new_f.func.delay(33).transfer_iotas(33).post();
 
     
     

@@ -77,8 +77,8 @@ export class ImmutableClaimWateringParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScImmutableHash(this.proxy.root(sc.ParamPlantId));
 	}
 
-	timestamp(): wasmtypes.ScImmutableInt64 {
-		return new wasmtypes.ScImmutableInt64(this.proxy.root(sc.ParamTimestamp));
+	timestamp(): wasmtypes.ScImmutableUint64 {
+		return new wasmtypes.ScImmutableUint64(this.proxy.root(sc.ParamTimestamp));
 	}
 }
 
@@ -87,8 +87,8 @@ export class MutableClaimWateringParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScMutableHash(this.proxy.root(sc.ParamPlantId));
 	}
 
-	timestamp(): wasmtypes.ScMutableInt64 {
-		return new wasmtypes.ScMutableInt64(this.proxy.root(sc.ParamTimestamp));
+	timestamp(): wasmtypes.ScMutableUint64 {
+		return new wasmtypes.ScMutableUint64(this.proxy.root(sc.ParamTimestamp));
 	}
 }
 
@@ -197,10 +197,6 @@ export class ImmutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScImmutableUint32(this.proxy.root(sc.ParamActiveReason));
 	}
 
-	claimId(): wasmtypes.ScImmutableHash {
-		return new wasmtypes.ScImmutableHash(this.proxy.root(sc.ParamClaimId));
-	}
-
 	claimed(): wasmtypes.ScImmutableBool {
 		return new wasmtypes.ScImmutableBool(this.proxy.root(sc.ParamClaimed));
 	}
@@ -217,8 +213,8 @@ export class ImmutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScImmutableString(this.proxy.root(sc.ParamDescription));
 	}
 
-	funds(): wasmtypes.ScImmutableInt64 {
-		return new wasmtypes.ScImmutableInt64(this.proxy.root(sc.ParamFunds));
+	funds(): wasmtypes.ScImmutableUint64 {
+		return new wasmtypes.ScImmutableUint64(this.proxy.root(sc.ParamFunds));
 	}
 
 	id(): wasmtypes.ScImmutableHash {
@@ -237,6 +233,10 @@ export class ImmutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScImmutableAgentID(this.proxy.root(sc.ParamManufacturer));
 	}
 
+	mintClaimId(): wasmtypes.ScImmutableHash {
+		return new wasmtypes.ScImmutableHash(this.proxy.root(sc.ParamMintClaimId));
+	}
+
 	name(): wasmtypes.ScImmutableString {
 		return new wasmtypes.ScImmutableString(this.proxy.root(sc.ParamName));
 	}
@@ -245,8 +245,8 @@ export class ImmutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScImmutableAgentID(this.proxy.root(sc.ParamOwner));
 	}
 
-	payReward(): wasmtypes.ScImmutableInt64 {
-		return new wasmtypes.ScImmutableInt64(this.proxy.root(sc.ParamPayReward));
+	payReward(): wasmtypes.ScImmutableUint64 {
+		return new wasmtypes.ScImmutableUint64(this.proxy.root(sc.ParamPayReward));
 	}
 
 	waterTarget(): wasmtypes.ScImmutableInt32 {
@@ -267,10 +267,6 @@ export class MutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScMutableUint32(this.proxy.root(sc.ParamActiveReason));
 	}
 
-	claimId(): wasmtypes.ScMutableHash {
-		return new wasmtypes.ScMutableHash(this.proxy.root(sc.ParamClaimId));
-	}
-
 	claimed(): wasmtypes.ScMutableBool {
 		return new wasmtypes.ScMutableBool(this.proxy.root(sc.ParamClaimed));
 	}
@@ -287,8 +283,8 @@ export class MutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScMutableString(this.proxy.root(sc.ParamDescription));
 	}
 
-	funds(): wasmtypes.ScMutableInt64 {
-		return new wasmtypes.ScMutableInt64(this.proxy.root(sc.ParamFunds));
+	funds(): wasmtypes.ScMutableUint64 {
+		return new wasmtypes.ScMutableUint64(this.proxy.root(sc.ParamFunds));
 	}
 
 	id(): wasmtypes.ScMutableHash {
@@ -307,6 +303,10 @@ export class MutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScMutableAgentID(this.proxy.root(sc.ParamManufacturer));
 	}
 
+	mintClaimId(): wasmtypes.ScMutableHash {
+		return new wasmtypes.ScMutableHash(this.proxy.root(sc.ParamMintClaimId));
+	}
+
 	name(): wasmtypes.ScMutableString {
 		return new wasmtypes.ScMutableString(this.proxy.root(sc.ParamName));
 	}
@@ -315,8 +315,8 @@ export class MutableMintPlantRawParams extends wasmtypes.ScProxy {
 		return new wasmtypes.ScMutableAgentID(this.proxy.root(sc.ParamOwner));
 	}
 
-	payReward(): wasmtypes.ScMutableInt64 {
-		return new wasmtypes.ScMutableInt64(this.proxy.root(sc.ParamPayReward));
+	payReward(): wasmtypes.ScMutableUint64 {
+		return new wasmtypes.ScMutableUint64(this.proxy.root(sc.ParamPayReward));
 	}
 
 	waterTarget(): wasmtypes.ScMutableInt32 {
@@ -329,8 +329,8 @@ export class MutableMintPlantRawParams extends wasmtypes.ScProxy {
 }
 
 export class ImmutablePayClaimerParams extends wasmtypes.ScProxy {
-	amount(): wasmtypes.ScImmutableInt64 {
-		return new wasmtypes.ScImmutableInt64(this.proxy.root(sc.ParamAmount));
+	amount(): wasmtypes.ScImmutableUint64 {
+		return new wasmtypes.ScImmutableUint64(this.proxy.root(sc.ParamAmount));
 	}
 
 	to(): wasmtypes.ScImmutableAgentID {
@@ -339,8 +339,8 @@ export class ImmutablePayClaimerParams extends wasmtypes.ScProxy {
 }
 
 export class MutablePayClaimerParams extends wasmtypes.ScProxy {
-	amount(): wasmtypes.ScMutableInt64 {
-		return new wasmtypes.ScMutableInt64(this.proxy.root(sc.ParamAmount));
+	amount(): wasmtypes.ScMutableUint64 {
+		return new wasmtypes.ScMutableUint64(this.proxy.root(sc.ParamAmount));
 	}
 
 	to(): wasmtypes.ScMutableAgentID {
@@ -413,14 +413,14 @@ export class MutableSetPlantWeatherTimeoutParams extends wasmtypes.ScProxy {
 }
 
 export class ImmutableGetClaimParams extends wasmtypes.ScProxy {
-	claimID(): sc.ImmutableClaim {
-		return new sc.ImmutableClaim(this.proxy.root(sc.ParamClaimID));
+	reqClaimId(): sc.ImmutableClaim {
+		return new sc.ImmutableClaim(this.proxy.root(sc.ParamReqClaimId));
 	}
 }
 
 export class MutableGetClaimParams extends wasmtypes.ScProxy {
-	claimID(): sc.MutableClaim {
-		return new sc.MutableClaim(this.proxy.root(sc.ParamClaimID));
+	reqClaimId(): sc.MutableClaim {
+		return new sc.MutableClaim(this.proxy.root(sc.ParamReqClaimId));
 	}
 }
 

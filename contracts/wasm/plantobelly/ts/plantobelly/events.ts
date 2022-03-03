@@ -18,20 +18,20 @@ export class plantobellyEvents {
 		evt.emit();
 	}
 
-	mint(balance: i64, owner: wasmtypes.ScAgentID, tokenId: wasmtypes.ScHash): void {
+	mint(balance: u64, owner: wasmtypes.ScAgentID, tokenId: wasmtypes.ScHash): void {
 		const evt = new wasmlib.EventEncoder("plantobelly.mint");
-		evt.encode(wasmtypes.int64ToString(balance));
+		evt.encode(wasmtypes.uint64ToString(balance));
 		evt.encode(wasmtypes.agentIDToString(owner));
 		evt.encode(wasmtypes.hashToString(tokenId));
 		evt.emit();
 	}
 
-	resolution(claimer: wasmtypes.ScAgentID, plantId: wasmtypes.ScHash, result: u32, reward: i64): void {
+	resolution(claimer: wasmtypes.ScAgentID, plantId: wasmtypes.ScHash, result: u32, reward: u64): void {
 		const evt = new wasmlib.EventEncoder("plantobelly.resolution");
 		evt.encode(wasmtypes.agentIDToString(claimer));
 		evt.encode(wasmtypes.hashToString(plantId));
 		evt.encode(wasmtypes.uint32ToString(result));
-		evt.encode(wasmtypes.int64ToString(reward));
+		evt.encode(wasmtypes.uint64ToString(reward));
 		evt.emit();
 	}
 }

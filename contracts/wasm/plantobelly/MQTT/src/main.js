@@ -24,7 +24,7 @@ let encoder = new wasmclient_1.Encoder();
 let decoder = new wasmclient_1.Decoder();
 let conf = new wasmclient_1.Configuration(iconf);
 let sc = new wasmclient_1.ServiceClient(conf);
-let svc = new wasmclient_1.Service(sc, HashAsNumber(chainconfig_json_1.default.contractName), plantobellyclient_1.eventHandlers);
+let svc = new wasmclient_1.Service(sc, HashAsNumber(chainconfig_json_1.default.contractName));
 function getPK() {
     if (!svc.keyPair) {
         throw Error("no keypair given!");
@@ -34,7 +34,7 @@ function getPK() {
 function CreateNewPlant(f) {
     f.active(true);
     f.activeReason(0);
-    f.claimId('abcdef');
+    f.mintClaimId('abcdef');
     f.claimed(false);
     f.covered(false);
     f.currentWater(0);

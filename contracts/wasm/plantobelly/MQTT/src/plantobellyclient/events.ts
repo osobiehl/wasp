@@ -6,13 +6,39 @@
 // Change the json schema instead
 
 import * as wasmclient from "wasmclient"
-import * as app from "./plantobelly"
 
-export const eventHandlers: wasmclient.EventHandlers = new Map([
-	["plantobelly.claim", (msg: string[]) => app.onPlantobellyClaim(new EventClaim(msg))],
-	["plantobelly.mint", (msg: string[]) => app.onPlantobellyMint(new EventMint(msg))],
-	["plantobelly.resolution", (msg: string[]) => app.onPlantobellyResolution(new EventResolution(msg))],
+const plantobellyHandlers = new Map<string, (evt: PlantobellyEvents, msg: string[]) => void>([
+	["plantobelly.claim", (evt: PlantobellyEvents, msg: string[]) => evt.claim(new EventClaim(msg))],
+	["plantobelly.mint", (evt: PlantobellyEvents, msg: string[]) => evt.mint(new EventMint(msg))],
+	["plantobelly.resolution", (evt: PlantobellyEvents, msg: string[]) => evt.resolution(new EventResolution(msg))],
 ]);
+
+export class PlantobellyEvents implements wasmclient.IEventHandler {
+/* eslint-disable @typescript-eslint/no-empty-function */
+	claim: (evt: EventClaim) => void = () => {};
+	mint: (evt: EventMint) => void = () => {};
+	resolution: (evt: EventResolution) => void = () => {};
+/* eslint-enable @typescript-eslint/no-empty-function */
+
+	public callHandler(topic: string, params: string[]): void {
+		const handler = plantobellyHandlers.get(topic);
+		if (handler) {
+			handler(this, params);
+		}
+	}
+
+	public onPlantobellyClaim(handler: (evt: EventClaim) => void): void {
+		this.claim = handler;
+	}
+
+	public onPlantobellyMint(handler: (evt: EventMint) => void): void {
+		this.mint = handler;
+	}
+
+	public onPlantobellyResolution(handler: (evt: EventResolution) => void): void {
+		this.resolution = handler;
+	}
+}
 
 export class EventClaim extends wasmclient.Event {
 	public readonly claimer: wasmclient.AgentID;
@@ -20,7 +46,7 @@ export class EventClaim extends wasmclient.Event {
 	public readonly plantId: wasmclient.Hash;
 	
 	public constructor(msg: string[]) {
-		super(msg)
+		super(msg);
 		this.claimer = this.nextAgentID();
 		this.id = this.nextHash();
 		this.plantId = this.nextHash();
@@ -28,13 +54,13 @@ export class EventClaim extends wasmclient.Event {
 }
 
 export class EventMint extends wasmclient.Event {
-	public readonly balance: wasmclient.Int64;
+	public readonly balance: wasmclient.Uint64;
 	public readonly owner: wasmclient.AgentID;
 	public readonly tokenId: wasmclient.Hash;
 	
 	public constructor(msg: string[]) {
-		super(msg)
-		this.balance = this.nextInt64();
+		super(msg);
+		this.balance = this.nextUint64();
 		this.owner = this.nextAgentID();
 		this.tokenId = this.nextHash();
 	}
@@ -44,13 +70,13 @@ export class EventResolution extends wasmclient.Event {
 	public readonly claimer: wasmclient.AgentID;
 	public readonly plantId: wasmclient.Hash;
 	public readonly result: wasmclient.Uint32;
-	public readonly reward: wasmclient.Int64;
+	public readonly reward: wasmclient.Uint64;
 	
 	public constructor(msg: string[]) {
-		super(msg)
+		super(msg);
 		this.claimer = this.nextAgentID();
 		this.plantId = this.nextHash();
 		this.result = this.nextUint32();
-		this.reward = this.nextInt64();
+		this.reward = this.nextUint64();
 	}
 }

@@ -318,7 +318,8 @@ func TestClaimAfterResolvedPlantNotWatered(t *testing.T) {
 	CreateClaim(ctx, agent2, &r.Plant.Id)
 	payment_balance := agent2.Balance(wasmtypes.IOTA)
 	ctx.AdvanceClockBy(121 * time.Minute)
-	require.True(t, ctx.WaitForPendingRequests(1))
+	// require.True(t, ctx.WaitForPendingRequests(1))
+
 	after_payment_balance := agent2.Balance(wasmtypes.IOTA)
 	require.Equal(t, payment_balance, after_payment_balance, "user was paid!!")
 	// no watering

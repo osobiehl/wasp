@@ -10,17 +10,16 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
-    "@types/uuid": "^8.3.4",
-    "assemblyscript": "^0.19.18",
-    
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-replace": "^3.0.0",
     "@rollup/plugin-typescript": "^8.2.5",
     "@tsconfig/svelte": "^2.0.0",
     "@types/gtag.js": "^0.0.7",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
+    "assemblyscript": "^0.19.18",
     "base64-js": "^1.5.1",
     "blakejs": "^1.1.1",
     "eslint": "^7.32.0",
@@ -48,7 +47,8 @@
     "tweetnacl": "^1.0.3",
     "typescript": "^4.0.0",
     "uuid": "^8.3.2",
-    "wasmclient": "file:../../../../packages/wasmvm/wasmlib/ts/wasmclient"
+    "wasmclient": "file:../../../../packages/wasmvm/wasmlib/ts/wasmclient",
+    "worker-loader": "^3.0.8"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.15.8",

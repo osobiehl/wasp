@@ -19,12 +19,10 @@ const ArgDuration = "duration";
 const ArgFunds = "funds";
 const ArgId = "id";
 const ArgLattitude = "lattitude";
-const ArgLocation = "location";
 const ArgLongitude = "longitude";
 const ArgManufacturer = "manufacturer";
 const ArgMintClaimId = "mintClaimId";
 const ArgName = "name";
-const ArgNewPlant = "newPlant";
 const ArgNewState = "newState";
 const ArgOracleId = "oracleId";
 const ArgOwner = "owner";
@@ -43,13 +41,32 @@ const ArgWaterLevel = "waterLevel";
 const ArgWaterTarget = "waterTarget";
 const ArgWaterThreshold = "waterThreshold";
 
-const ResClaim = "claim";
+const ResActive = "active";
+const ResActiveReason = "activeReason";
+const ResClaimId = "claimId";
+const ResClaimed = "claimed";
+const ResClaimer = "claimer";
 const ResClaims = "claims";
+const ResCovered = "covered";
+const ResCurrentWater = "currentWater";
+const ResDeposit = "deposit";
+const ResDescription = "description";
+const ResFunds = "funds";
+const ResId = "id";
 const ResIsOwner = "isOwner";
+const ResLattitude = "lattitude";
+const ResLongitude = "longitude";
+const ResManufacturer = "manufacturer";
+const ResName = "name";
 const ResOracles = "oracles";
 const ResOwner = "owner";
-const ResPlant = "plant";
+const ResPlantId = "plantId";
 const ResPlants = "plants";
+const ResRecordedWaterLevel = "recordedWaterLevel";
+const ResReward = "reward";
+const ResTimestamp = "timestamp";
+const ResWaterTarget = "waterTarget";
+const ResWaterThreshold = "waterThreshold";
 
 ///////////////////////////// activatePlantOwner /////////////////////////////
 
@@ -154,8 +171,12 @@ export class EditOwnPlantFunc extends wasmclient.ClientFunc {
 		this.args.set(ArgDescription, this.args.fromString(v));
 	}
 	
-	public location(v: ): void {
-		this.args.set(ArgLocation, this.args.fromGeolocation(v));
+	public lattitude(v: string): void {
+		this.args.set(ArgLattitude, this.args.fromString(v));
+	}
+	
+	public longitude(v: string): void {
+		this.args.set(ArgLongitude, this.args.fromString(v));
 	}
 	
 	public name(v: string): void {
@@ -173,6 +194,8 @@ export class EditOwnPlantFunc extends wasmclient.ClientFunc {
 	public async post(): Promise<wasmclient.RequestID> {
 		this.args.mandatory(ArgCovered);
 		this.args.mandatory(ArgDescription);
+		this.args.mandatory(ArgLattitude);
+		this.args.mandatory(ArgLongitude);
 		this.args.mandatory(ArgName);
 		this.args.mandatory(ArgReward);
 		this.args.mandatory(ArgWaterTarget);
@@ -211,20 +234,6 @@ export class InterruptWeatherEventFunc extends wasmclient.ClientFunc {
 		this.args.mandatory(ArgDuration);
 		this.args.mandatory(ArgPlantId);
 		return await super.post(0xc42865d1, this.args);
-	}
-}
-
-///////////////////////////// mintPlant /////////////////////////////
-
-export class MintPlantFunc extends wasmclient.ClientFunc {
-	private args: wasmclient.Arguments = new wasmclient.Arguments();
-	
-	public newPlant(v: ): void {
-		this.args.set(ArgNewPlant, this.args.fromPlant(v));
-	}
-	
-	public async post(): Promise<wasmclient.RequestID> {
-		return await super.post(0x6aeb84a1, this.args);
 	}
 }
 
@@ -418,11 +427,12 @@ export class SetPlantWeatherTimeoutFunc extends wasmclient.ClientFunc {
 export class GetClaimView extends wasmclient.ClientView {
 	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-	public reqClaimId(v: ): void {
-		this.args.set(ArgReqClaimId, this.args.fromClaim(v));
+	public reqClaimId(v: wasmclient.Hash): void {
+		this.args.set(ArgReqClaimId, this.args.fromHash(v));
 	}
 
 	public async call(): Promise<GetClaimResults> {
+		this.args.mandatory(ArgReqClaimId);
 		const res = new GetClaimResults();
 		await this.callView("getClaim", this.args, res);
 		return res;
@@ -431,8 +441,28 @@ export class GetClaimView extends wasmclient.ClientView {
 
 export class GetClaimResults extends wasmclient.Results {
 
-	claim(): Claim {
-		return Claim.fromBytes(this.get(ResClaim));
+	claimer(): wasmclient.AgentID {
+		return this.toAgentID(this.get(ResClaimer));
+	}
+
+	deposit(): wasmclient.Uint64 {
+		return this.toUint64(this.get(ResDeposit));
+	}
+
+	id(): wasmclient.Hash {
+		return this.toHash(this.get(ResId));
+	}
+
+	plantId(): wasmclient.Hash {
+		return this.toHash(this.get(ResPlantId));
+	}
+
+	recordedWaterLevel(): wasmclient.Int32 {
+		return this.toInt32(this.get(ResRecordedWaterLevel));
+	}
+
+	timestamp(): wasmclient.Uint64 {
+		return this.toUint64(this.get(ResTimestamp));
 	}
 }
 
@@ -449,8 +479,8 @@ export class GetClaimsView extends wasmclient.ClientView {
 
 export class GetClaimsResults extends wasmclient.Results {
 
-	claims(): Claim {
-		return Claim.fromBytes(this.get(ResClaims));
+	claims(): wasmclient.Hash {
+		return this.toHash(this.get(ResClaims));
 	}
 }
 
@@ -491,8 +521,72 @@ export class GetPlantView extends wasmclient.ClientView {
 
 export class GetPlantResults extends wasmclient.Results {
 
-	plant(): Plant {
-		return Plant.fromBytes(this.get(ResPlant));
+	active(): boolean {
+		return this.toBool(this.get(ResActive));
+	}
+
+	activeReason(): wasmclient.Uint32 {
+		return this.toUint32(this.get(ResActiveReason));
+	}
+
+	claimId(): wasmclient.Hash {
+		return this.toHash(this.get(ResClaimId));
+	}
+
+	claimed(): boolean {
+		return this.toBool(this.get(ResClaimed));
+	}
+
+	covered(): boolean {
+		return this.toBool(this.get(ResCovered));
+	}
+
+	currentWater(): wasmclient.Int32 {
+		return this.toInt32(this.get(ResCurrentWater));
+	}
+
+	description(): string {
+		return this.toString(this.get(ResDescription));
+	}
+
+	funds(): wasmclient.Uint64 {
+		return this.toUint64(this.get(ResFunds));
+	}
+
+	id(): wasmclient.Hash {
+		return this.toHash(this.get(ResId));
+	}
+
+	lattitude(): string {
+		return this.toString(this.get(ResLattitude));
+	}
+
+	longitude(): string {
+		return this.toString(this.get(ResLongitude));
+	}
+
+	manufacturer(): wasmclient.AgentID {
+		return this.toAgentID(this.get(ResManufacturer));
+	}
+
+	name(): string {
+		return this.toString(this.get(ResName));
+	}
+
+	owner(): wasmclient.AgentID {
+		return this.toAgentID(this.get(ResOwner));
+	}
+
+	reward(): wasmclient.Uint64 {
+		return this.toUint64(this.get(ResReward));
+	}
+
+	waterTarget(): wasmclient.Int32 {
+		return this.toInt32(this.get(ResWaterTarget));
+	}
+
+	waterThreshold(): wasmclient.Int32 {
+		return this.toInt32(this.get(ResWaterThreshold));
 	}
 }
 
@@ -527,8 +621,8 @@ export class GetPlantsView extends wasmclient.ClientView {
 
 export class GetPlantsResults extends wasmclient.Results {
 
-	plants(): Plant {
-		return Plant.fromBytes(this.get(ResPlants));
+	plants(): wasmclient.Hash {
+		return this.toHash(this.get(ResPlants));
 	}
 }
 
@@ -551,8 +645,8 @@ export class GetPlantsFromOwnerView extends wasmclient.ClientView {
 
 export class GetPlantsFromOwnerResults extends wasmclient.Results {
 
-	plants(): Plant {
-		return Plant.fromBytes(this.get(ResPlants));
+	plants(): wasmclient.Hash {
+		return this.toHash(this.get(ResPlants));
 	}
 }
 
@@ -645,10 +739,6 @@ export class PlantobellyService extends wasmclient.Service {
 
 	public interruptWeatherEvent(): InterruptWeatherEventFunc {
 		return new InterruptWeatherEventFunc(this);
-	}
-
-	public mintPlant(): MintPlantFunc {
-		return new MintPlantFunc(this);
 	}
 
 	public mintPlantRaw(): MintPlantRawFunc {

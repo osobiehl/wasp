@@ -13,64 +13,72 @@ type ImmutableGetClaimResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s ImmutableGetClaimResults) Claim() ImmutableClaim {
-	return ImmutableClaim{proxy: s.proxy.Root(ResultClaim)}
+func (s ImmutableGetClaimResults) Claimer() wasmtypes.ScImmutableAgentID {
+	return wasmtypes.NewScImmutableAgentID(s.proxy.Root(ResultClaimer))
+}
+
+func (s ImmutableGetClaimResults) Deposit() wasmtypes.ScImmutableUint64 {
+	return wasmtypes.NewScImmutableUint64(s.proxy.Root(ResultDeposit))
+}
+
+func (s ImmutableGetClaimResults) Id() wasmtypes.ScImmutableHash {
+	return wasmtypes.NewScImmutableHash(s.proxy.Root(ResultId))
+}
+
+func (s ImmutableGetClaimResults) PlantId() wasmtypes.ScImmutableHash {
+	return wasmtypes.NewScImmutableHash(s.proxy.Root(ResultPlantId))
+}
+
+func (s ImmutableGetClaimResults) RecordedWaterLevel() wasmtypes.ScImmutableInt32 {
+	return wasmtypes.NewScImmutableInt32(s.proxy.Root(ResultRecordedWaterLevel))
+}
+
+func (s ImmutableGetClaimResults) Timestamp() wasmtypes.ScImmutableUint64 {
+	return wasmtypes.NewScImmutableUint64(s.proxy.Root(ResultTimestamp))
 }
 
 type MutableGetClaimResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s MutableGetClaimResults) Claim() MutableClaim {
-	return MutableClaim{proxy: s.proxy.Root(ResultClaim)}
+func (s MutableGetClaimResults) Claimer() wasmtypes.ScMutableAgentID {
+	return wasmtypes.NewScMutableAgentID(s.proxy.Root(ResultClaimer))
 }
 
-type ArrayOfImmutableClaim struct {
-	proxy wasmtypes.Proxy
+func (s MutableGetClaimResults) Deposit() wasmtypes.ScMutableUint64 {
+	return wasmtypes.NewScMutableUint64(s.proxy.Root(ResultDeposit))
 }
 
-func (a ArrayOfImmutableClaim) Length() uint32 {
-	return a.proxy.Length()
+func (s MutableGetClaimResults) Id() wasmtypes.ScMutableHash {
+	return wasmtypes.NewScMutableHash(s.proxy.Root(ResultId))
 }
 
-func (a ArrayOfImmutableClaim) GetClaim(index uint32) ImmutableClaim {
-	return ImmutableClaim{proxy: a.proxy.Index(index)}
+func (s MutableGetClaimResults) PlantId() wasmtypes.ScMutableHash {
+	return wasmtypes.NewScMutableHash(s.proxy.Root(ResultPlantId))
+}
+
+func (s MutableGetClaimResults) RecordedWaterLevel() wasmtypes.ScMutableInt32 {
+	return wasmtypes.NewScMutableInt32(s.proxy.Root(ResultRecordedWaterLevel))
+}
+
+func (s MutableGetClaimResults) Timestamp() wasmtypes.ScMutableUint64 {
+	return wasmtypes.NewScMutableUint64(s.proxy.Root(ResultTimestamp))
 }
 
 type ImmutableGetClaimsResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s ImmutableGetClaimsResults) Claims() ArrayOfImmutableClaim {
-	return ArrayOfImmutableClaim{proxy: s.proxy.Root(ResultClaims)}
-}
-
-type ArrayOfMutableClaim struct {
-	proxy wasmtypes.Proxy
-}
-
-func (a ArrayOfMutableClaim) AppendClaim() MutableClaim {
-	return MutableClaim{proxy: a.proxy.Append()}
-}
-
-func (a ArrayOfMutableClaim) Clear() {
-	a.proxy.ClearArray()
-}
-
-func (a ArrayOfMutableClaim) Length() uint32 {
-	return a.proxy.Length()
-}
-
-func (a ArrayOfMutableClaim) GetClaim(index uint32) MutableClaim {
-	return MutableClaim{proxy: a.proxy.Index(index)}
+func (s ImmutableGetClaimsResults) Claims() ArrayOfImmutableHash {
+	return ArrayOfImmutableHash{proxy: s.proxy.Root(ResultClaims)}
 }
 
 type MutableGetClaimsResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s MutableGetClaimsResults) Claims() ArrayOfMutableClaim {
-	return ArrayOfMutableClaim{proxy: s.proxy.Root(ResultClaims)}
+func (s MutableGetClaimsResults) Claims() ArrayOfMutableHash {
+	return ArrayOfMutableHash{proxy: s.proxy.Root(ResultClaims)}
 }
 
 type ImmutableGetOwnerResults struct {
@@ -93,16 +101,144 @@ type ImmutableGetPlantResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s ImmutableGetPlantResults) Plant() ImmutablePlant {
-	return ImmutablePlant{proxy: s.proxy.Root(ResultPlant)}
+func (s ImmutableGetPlantResults) Active() wasmtypes.ScImmutableBool {
+	return wasmtypes.NewScImmutableBool(s.proxy.Root(ResultActive))
+}
+
+func (s ImmutableGetPlantResults) ActiveReason() wasmtypes.ScImmutableUint32 {
+	return wasmtypes.NewScImmutableUint32(s.proxy.Root(ResultActiveReason))
+}
+
+func (s ImmutableGetPlantResults) ClaimId() wasmtypes.ScImmutableHash {
+	return wasmtypes.NewScImmutableHash(s.proxy.Root(ResultClaimId))
+}
+
+func (s ImmutableGetPlantResults) Claimed() wasmtypes.ScImmutableBool {
+	return wasmtypes.NewScImmutableBool(s.proxy.Root(ResultClaimed))
+}
+
+func (s ImmutableGetPlantResults) Covered() wasmtypes.ScImmutableBool {
+	return wasmtypes.NewScImmutableBool(s.proxy.Root(ResultCovered))
+}
+
+func (s ImmutableGetPlantResults) CurrentWater() wasmtypes.ScImmutableInt32 {
+	return wasmtypes.NewScImmutableInt32(s.proxy.Root(ResultCurrentWater))
+}
+
+func (s ImmutableGetPlantResults) Description() wasmtypes.ScImmutableString {
+	return wasmtypes.NewScImmutableString(s.proxy.Root(ResultDescription))
+}
+
+func (s ImmutableGetPlantResults) Funds() wasmtypes.ScImmutableUint64 {
+	return wasmtypes.NewScImmutableUint64(s.proxy.Root(ResultFunds))
+}
+
+func (s ImmutableGetPlantResults) Id() wasmtypes.ScImmutableHash {
+	return wasmtypes.NewScImmutableHash(s.proxy.Root(ResultId))
+}
+
+func (s ImmutableGetPlantResults) Lattitude() wasmtypes.ScImmutableString {
+	return wasmtypes.NewScImmutableString(s.proxy.Root(ResultLattitude))
+}
+
+func (s ImmutableGetPlantResults) Longitude() wasmtypes.ScImmutableString {
+	return wasmtypes.NewScImmutableString(s.proxy.Root(ResultLongitude))
+}
+
+func (s ImmutableGetPlantResults) Manufacturer() wasmtypes.ScImmutableAgentID {
+	return wasmtypes.NewScImmutableAgentID(s.proxy.Root(ResultManufacturer))
+}
+
+func (s ImmutableGetPlantResults) Name() wasmtypes.ScImmutableString {
+	return wasmtypes.NewScImmutableString(s.proxy.Root(ResultName))
+}
+
+func (s ImmutableGetPlantResults) Owner() wasmtypes.ScImmutableAgentID {
+	return wasmtypes.NewScImmutableAgentID(s.proxy.Root(ResultOwner))
+}
+
+func (s ImmutableGetPlantResults) Reward() wasmtypes.ScImmutableUint64 {
+	return wasmtypes.NewScImmutableUint64(s.proxy.Root(ResultReward))
+}
+
+func (s ImmutableGetPlantResults) WaterTarget() wasmtypes.ScImmutableInt32 {
+	return wasmtypes.NewScImmutableInt32(s.proxy.Root(ResultWaterTarget))
+}
+
+func (s ImmutableGetPlantResults) WaterThreshold() wasmtypes.ScImmutableInt32 {
+	return wasmtypes.NewScImmutableInt32(s.proxy.Root(ResultWaterThreshold))
 }
 
 type MutableGetPlantResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s MutableGetPlantResults) Plant() MutablePlant {
-	return MutablePlant{proxy: s.proxy.Root(ResultPlant)}
+func (s MutableGetPlantResults) Active() wasmtypes.ScMutableBool {
+	return wasmtypes.NewScMutableBool(s.proxy.Root(ResultActive))
+}
+
+func (s MutableGetPlantResults) ActiveReason() wasmtypes.ScMutableUint32 {
+	return wasmtypes.NewScMutableUint32(s.proxy.Root(ResultActiveReason))
+}
+
+func (s MutableGetPlantResults) ClaimId() wasmtypes.ScMutableHash {
+	return wasmtypes.NewScMutableHash(s.proxy.Root(ResultClaimId))
+}
+
+func (s MutableGetPlantResults) Claimed() wasmtypes.ScMutableBool {
+	return wasmtypes.NewScMutableBool(s.proxy.Root(ResultClaimed))
+}
+
+func (s MutableGetPlantResults) Covered() wasmtypes.ScMutableBool {
+	return wasmtypes.NewScMutableBool(s.proxy.Root(ResultCovered))
+}
+
+func (s MutableGetPlantResults) CurrentWater() wasmtypes.ScMutableInt32 {
+	return wasmtypes.NewScMutableInt32(s.proxy.Root(ResultCurrentWater))
+}
+
+func (s MutableGetPlantResults) Description() wasmtypes.ScMutableString {
+	return wasmtypes.NewScMutableString(s.proxy.Root(ResultDescription))
+}
+
+func (s MutableGetPlantResults) Funds() wasmtypes.ScMutableUint64 {
+	return wasmtypes.NewScMutableUint64(s.proxy.Root(ResultFunds))
+}
+
+func (s MutableGetPlantResults) Id() wasmtypes.ScMutableHash {
+	return wasmtypes.NewScMutableHash(s.proxy.Root(ResultId))
+}
+
+func (s MutableGetPlantResults) Lattitude() wasmtypes.ScMutableString {
+	return wasmtypes.NewScMutableString(s.proxy.Root(ResultLattitude))
+}
+
+func (s MutableGetPlantResults) Longitude() wasmtypes.ScMutableString {
+	return wasmtypes.NewScMutableString(s.proxy.Root(ResultLongitude))
+}
+
+func (s MutableGetPlantResults) Manufacturer() wasmtypes.ScMutableAgentID {
+	return wasmtypes.NewScMutableAgentID(s.proxy.Root(ResultManufacturer))
+}
+
+func (s MutableGetPlantResults) Name() wasmtypes.ScMutableString {
+	return wasmtypes.NewScMutableString(s.proxy.Root(ResultName))
+}
+
+func (s MutableGetPlantResults) Owner() wasmtypes.ScMutableAgentID {
+	return wasmtypes.NewScMutableAgentID(s.proxy.Root(ResultOwner))
+}
+
+func (s MutableGetPlantResults) Reward() wasmtypes.ScMutableUint64 {
+	return wasmtypes.NewScMutableUint64(s.proxy.Root(ResultReward))
+}
+
+func (s MutableGetPlantResults) WaterTarget() wasmtypes.ScMutableInt32 {
+	return wasmtypes.NewScMutableInt32(s.proxy.Root(ResultWaterTarget))
+}
+
+func (s MutableGetPlantResults) WaterThreshold() wasmtypes.ScMutableInt32 {
+	return wasmtypes.NewScMutableInt32(s.proxy.Root(ResultWaterThreshold))
 }
 
 type ArrayOfImmutableAgentID struct {
@@ -157,32 +293,32 @@ type ImmutableGetPlantsResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s ImmutableGetPlantsResults) Plants() ArrayOfImmutablePlant {
-	return ArrayOfImmutablePlant{proxy: s.proxy.Root(ResultPlants)}
+func (s ImmutableGetPlantsResults) Plants() ArrayOfImmutableHash {
+	return ArrayOfImmutableHash{proxy: s.proxy.Root(ResultPlants)}
 }
 
 type MutableGetPlantsResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s MutableGetPlantsResults) Plants() ArrayOfMutablePlant {
-	return ArrayOfMutablePlant{proxy: s.proxy.Root(ResultPlants)}
+func (s MutableGetPlantsResults) Plants() ArrayOfMutableHash {
+	return ArrayOfMutableHash{proxy: s.proxy.Root(ResultPlants)}
 }
 
 type ImmutableGetPlantsFromOwnerResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s ImmutableGetPlantsFromOwnerResults) Plants() ArrayOfImmutablePlant {
-	return ArrayOfImmutablePlant{proxy: s.proxy.Root(ResultPlants)}
+func (s ImmutableGetPlantsFromOwnerResults) Plants() ArrayOfImmutableHash {
+	return ArrayOfImmutableHash{proxy: s.proxy.Root(ResultPlants)}
 }
 
 type MutableGetPlantsFromOwnerResults struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s MutableGetPlantsFromOwnerResults) Plants() ArrayOfMutablePlant {
-	return ArrayOfMutablePlant{proxy: s.proxy.Root(ResultPlants)}
+func (s MutableGetPlantsFromOwnerResults) Plants() ArrayOfMutableHash {
+	return ArrayOfMutableHash{proxy: s.proxy.Root(ResultPlants)}
 }
 
 type ImmutableGetWeatherOraclesResults struct {

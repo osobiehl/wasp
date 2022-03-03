@@ -159,8 +159,12 @@ impl ImmutableEditOwnPlantParams {
 		ScImmutableString::new(self.proxy.root(PARAM_DESCRIPTION))
 	}
 
-    pub fn location(&self) -> ImmutableGeolocation {
-		ImmutableGeolocation { proxy: self.proxy.root(PARAM_LOCATION) }
+    pub fn lattitude(&self) -> ScImmutableString {
+		ScImmutableString::new(self.proxy.root(PARAM_LATTITUDE))
+	}
+
+    pub fn longitude(&self) -> ScImmutableString {
+		ScImmutableString::new(self.proxy.root(PARAM_LONGITUDE))
 	}
 
     pub fn name(&self) -> ScImmutableString {
@@ -190,8 +194,12 @@ impl MutableEditOwnPlantParams {
 		ScMutableString::new(self.proxy.root(PARAM_DESCRIPTION))
 	}
 
-    pub fn location(&self) -> MutableGeolocation {
-		MutableGeolocation { proxy: self.proxy.root(PARAM_LOCATION) }
+    pub fn lattitude(&self) -> ScMutableString {
+		ScMutableString::new(self.proxy.root(PARAM_LATTITUDE))
+	}
+
+    pub fn longitude(&self) -> ScMutableString {
+		ScMutableString::new(self.proxy.root(PARAM_LONGITUDE))
 	}
 
     pub fn name(&self) -> ScMutableString {
@@ -256,28 +264,6 @@ impl MutableInterruptWeatherEventParams {
 
     pub fn plant_id(&self) -> ScMutableHash {
 		ScMutableHash::new(self.proxy.root(PARAM_PLANT_ID))
-	}
-}
-
-#[derive(Clone)]
-pub struct ImmutableMintPlantParams {
-	pub(crate) proxy: Proxy,
-}
-
-impl ImmutableMintPlantParams {
-    pub fn new_plant(&self) -> ImmutablePlant {
-		ImmutablePlant { proxy: self.proxy.root(PARAM_NEW_PLANT) }
-	}
-}
-
-#[derive(Clone)]
-pub struct MutableMintPlantParams {
-	pub(crate) proxy: Proxy,
-}
-
-impl MutableMintPlantParams {
-    pub fn new_plant(&self) -> MutablePlant {
-		MutablePlant { proxy: self.proxy.root(PARAM_NEW_PLANT) }
 	}
 }
 
@@ -571,8 +557,8 @@ pub struct ImmutableGetClaimParams {
 }
 
 impl ImmutableGetClaimParams {
-    pub fn req_claim_id(&self) -> ImmutableClaim {
-		ImmutableClaim { proxy: self.proxy.root(PARAM_REQ_CLAIM_ID) }
+    pub fn req_claim_id(&self) -> ScImmutableHash {
+		ScImmutableHash::new(self.proxy.root(PARAM_REQ_CLAIM_ID))
 	}
 }
 
@@ -582,8 +568,8 @@ pub struct MutableGetClaimParams {
 }
 
 impl MutableGetClaimParams {
-    pub fn req_claim_id(&self) -> MutableClaim {
-		MutableClaim { proxy: self.proxy.root(PARAM_REQ_CLAIM_ID) }
+    pub fn req_claim_id(&self) -> ScMutableHash {
+		ScMutableHash::new(self.proxy.root(PARAM_REQ_CLAIM_ID))
 	}
 }
 

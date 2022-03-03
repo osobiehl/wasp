@@ -84,67 +84,6 @@ impl MutableClaim {
 }
 
 #[derive(Clone)]
-pub struct Geolocation {
-    pub lattitude : String, 
-    pub longitude : String, 
-}
-
-impl Geolocation {
-    pub fn from_bytes(bytes: &[u8]) -> Geolocation {
-        let mut dec = WasmDecoder::new(bytes);
-        Geolocation {
-            lattitude : string_decode(&mut dec),
-            longitude : string_decode(&mut dec),
-        }
-    }
-
-    pub fn to_bytes(&self) -> Vec<u8> {
-        let mut enc = WasmEncoder::new();
-		string_encode(&mut enc, &self.lattitude);
-		string_encode(&mut enc, &self.longitude);
-        enc.buf()
-    }
-}
-
-#[derive(Clone)]
-pub struct ImmutableGeolocation {
-    pub(crate) proxy: Proxy,
-}
-
-impl ImmutableGeolocation {
-    pub fn exists(&self) -> bool {
-        self.proxy.exists()
-    }
-
-    pub fn value(&self) -> Geolocation {
-        Geolocation::from_bytes(&self.proxy.get())
-    }
-}
-
-#[derive(Clone)]
-pub struct MutableGeolocation {
-    pub(crate) proxy: Proxy,
-}
-
-impl MutableGeolocation {
-    pub fn delete(&self) {
-        self.proxy.delete();
-    }
-
-    pub fn exists(&self) -> bool {
-        self.proxy.exists()
-    }
-
-    pub fn set_value(&self, value: &Geolocation) {
-        self.proxy.set(&value.to_bytes());
-    }
-
-    pub fn value(&self) -> Geolocation {
-        Geolocation::from_bytes(&self.proxy.get())
-    }
-}
-
-#[derive(Clone)]
 pub struct Plant {
     pub active          : bool, 
     pub active_reason   : u32,  // 0 -> default, 1 -> owner deactivated, 2 -> weather deactivated, 3 -> owner deactivated

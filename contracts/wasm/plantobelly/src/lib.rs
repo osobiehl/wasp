@@ -40,7 +40,6 @@ const EXPORT_MAP: ScExportMap = ScExportMap {
     	FUNC_EDIT_OWN_PLANT,
     	FUNC_INIT,
     	FUNC_INTERRUPT_WEATHER_EVENT,
-    	FUNC_MINT_PLANT,
     	FUNC_MINT_PLANT_RAW,
     	FUNC_PAY_CLAIMER,
     	FUNC_RESOLVE_CLAIM,
@@ -66,7 +65,6 @@ const EXPORT_MAP: ScExportMap = ScExportMap {
     	func_edit_own_plant_thunk,
     	func_init_thunk,
     	func_interrupt_weather_event_thunk,
-    	func_mint_plant_thunk,
     	func_mint_plant_raw_thunk,
     	func_pay_claimer_thunk,
     	func_resolve_claim_thunk,
@@ -213,6 +211,8 @@ fn func_edit_own_plant_thunk(ctx: &ScFuncContext) {
 	};
 	ctx.require(f.params.covered().exists(), "missing mandatory covered");
 	ctx.require(f.params.description().exists(), "missing mandatory description");
+	ctx.require(f.params.lattitude().exists(), "missing mandatory lattitude");
+	ctx.require(f.params.longitude().exists(), "missing mandatory longitude");
 	ctx.require(f.params.name().exists(), "missing mandatory name");
 	ctx.require(f.params.reward().exists(), "missing mandatory reward");
 	ctx.require(f.params.water_target().exists(), "missing mandatory waterTarget");
@@ -254,27 +254,6 @@ fn func_interrupt_weather_event_thunk(ctx: &ScFuncContext) {
 	ctx.require(f.params.plant_id().exists(), "missing mandatory plantId");
 	func_interrupt_weather_event(ctx, &f);
 	ctx.log("plantobelly.funcInterruptWeatherEvent ok");
-}
-
-pub struct MintPlantContext {
-	events:  plantobellyEvents,
-	params: ImmutableMintPlantParams,
-	state: MutableplantobellyState,
-}
-
-fn func_mint_plant_thunk(ctx: &ScFuncContext) {
-	ctx.log("plantobelly.funcMintPlant");
-	let f = MintPlantContext {
-		events:  plantobellyEvents {},
-		params: ImmutableMintPlantParams { proxy: params_proxy() },
-		state: MutableplantobellyState { proxy: state_proxy() },
-	};
-	let access = f.state.owner();
-	ctx.require(access.exists(), "access not set: owner");
-	ctx.require(ctx.caller() == access.value(), "no permission");
-
-	func_mint_plant(ctx, &f);
-	ctx.log("plantobelly.funcMintPlant ok");
 }
 
 pub struct MintPlantRawContext {
@@ -433,6 +412,7 @@ fn view_get_claim_thunk(ctx: &ScViewContext) {
 		results: MutableGetClaimResults { proxy: results_proxy() },
 		state: ImmutableplantobellyState { proxy: state_proxy() },
 	};
+	ctx.require(f.params.req_claim_id().exists(), "missing mandatory reqClaimId");
 	view_get_claim(ctx, &f);
 	ctx.results(&f.results.proxy.kv_store);
 	ctx.log("plantobelly.viewGetClaim ok");

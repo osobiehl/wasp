@@ -20,7 +20,6 @@ var exportMap = wasmlib.ScExportMap{
     	FuncEditOwnPlant,
     	FuncInit,
     	FuncInterruptWeatherEvent,
-    	FuncMintPlant,
     	FuncMintPlantRaw,
     	FuncPayClaimer,
     	FuncResolveClaim,
@@ -46,7 +45,6 @@ var exportMap = wasmlib.ScExportMap{
     	funcEditOwnPlantThunk,
     	funcInitThunk,
     	funcInterruptWeatherEventThunk,
-    	funcMintPlantThunk,
     	funcMintPlantRawThunk,
     	funcPayClaimerThunk,
     	funcResolveClaimThunk,
@@ -210,6 +208,8 @@ func funcEditOwnPlantThunk(ctx wasmlib.ScFuncContext) {
 	}
 	ctx.Require(f.Params.Covered().Exists(), "missing mandatory covered")
 	ctx.Require(f.Params.Description().Exists(), "missing mandatory description")
+	ctx.Require(f.Params.Lattitude().Exists(), "missing mandatory lattitude")
+	ctx.Require(f.Params.Longitude().Exists(), "missing mandatory longitude")
 	ctx.Require(f.Params.Name().Exists(), "missing mandatory name")
 	ctx.Require(f.Params.Reward().Exists(), "missing mandatory reward")
 	ctx.Require(f.Params.WaterTarget().Exists(), "missing mandatory waterTarget")
@@ -257,30 +257,6 @@ func funcInterruptWeatherEventThunk(ctx wasmlib.ScFuncContext) {
 	ctx.Require(f.Params.PlantId().Exists(), "missing mandatory plantId")
 	funcInterruptWeatherEvent(ctx, f)
 	ctx.Log("plantobelly.funcInterruptWeatherEvent ok")
-}
-
-type MintPlantContext struct {
-	Events  plantobellyEvents
-	Params  ImmutableMintPlantParams
-	State   MutableplantobellyState
-}
-
-func funcMintPlantThunk(ctx wasmlib.ScFuncContext) {
-	ctx.Log("plantobelly.funcMintPlant")
-	f := &MintPlantContext{
-		Params: ImmutableMintPlantParams{
-			proxy: wasmlib.NewParamsProxy(),
-		},
-		State: MutableplantobellyState{
-			proxy: wasmlib.NewStateProxy(),
-		},
-	}
-	access := f.State.Owner()
-	ctx.Require(access.Exists(), "access not set: owner")
-	ctx.Require(ctx.Caller() == access.Value(), "no permission")
-
-	funcMintPlant(ctx, f)
-	ctx.Log("plantobelly.funcMintPlant ok")
 }
 
 type MintPlantRawContext struct {
@@ -464,6 +440,7 @@ func viewGetClaimThunk(ctx wasmlib.ScViewContext) {
 			proxy: wasmlib.NewStateProxy(),
 		},
 	}
+	ctx.Require(f.Params.ReqClaimId().Exists(), "missing mandatory reqClaimId")
 	viewGetClaim(ctx, f)
 	ctx.Results(results)
 	ctx.Log("plantobelly.viewGetClaim ok")

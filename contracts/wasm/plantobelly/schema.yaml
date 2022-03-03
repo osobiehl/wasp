@@ -6,9 +6,9 @@ typedefs:
   Ids: Hash[]
   Plants: Plant[]
 structs:
-  Geolocation:
-    lattitude: String
-    longitude: String
+  # Geolocation:
+  #   lattitude: String
+  #   longitude: String
   Plant: 
     description: String // general description of plant
     manufacturer: AgentID // manufacturer wallet for payment
@@ -84,7 +84,8 @@ funcs:
     # access: plantOwners
     params:
       description: String // general description of plant
-      location: Geolocation
+      lattitude: String
+      longitude: String
       name: String
       reward: Uint64 // the reward given for watering the plant
       covered: Bool
@@ -111,10 +112,10 @@ funcs:
       active: Bool
       activeReason: Uint32 // 0 -> default, 1 -> owner deactivated, 2 -> weather deactivated, 3 -> owner deactivated
 
-  mintPlant:
-    access: owner
-    params:
-      newPlant: Plant
+  # mintPlant:
+  #   access: owner
+  #   params:
+  #     newPlant: Plant
 
   activatePlantOwner:
     # access: plantOwners
@@ -179,29 +180,50 @@ views:
 
   getPlants:
     results:
-      plants: Plant[]
+      plants: Hash[]
       
   getPlant: 
     params:
       plantId: Hash
     results:
-      plant: Plant
+      description: String // general description of plant
+      manufacturer: AgentID // manufacturer wallet for payment
+      owner: AgentID // owner of plant token
+      waterTarget: Int32 // level of water 
+      waterThreshold: Int32 // min. level of water to start watering
+      currentWater: Int32 // current level of water
+      id: Hash
+      funds: Uint64
+      lattitude: String // geolocation structs don't work WOW
+      longitude: String
+      name: String
+      reward: Uint64 // the reward given for watering the plant
+      covered: Bool
+      claimed: Bool // whether plant has been claimed
+      claimId: Hash // used to index claims (for scalability purposes)
+      active: Bool
+      activeReason: Uint32 // 0 -> default, 1 -> owner deactivated, 2 -> weather deactivated, 3 -> owner deactivated
 
   getClaims:
     results:
-      claims: Claim[]
+      claims: Hash[]
 
   getClaim: 
     params:
-      reqClaimId: Claim
+      reqClaimId: Hash
     results:
-      claim: Claim
+      id: Hash
+      recordedWaterLevel: Int32
+      claimer: AgentID
+      deposit: Uint64
+      plantId: Hash
+      timestamp: Uint64
 
   getPlantsFromOwner:
     params:
       ownerId: AgentID
     results:
-      plants: Plant[]
+      plants: Hash[]
 
   isPlantOwner:
     params:

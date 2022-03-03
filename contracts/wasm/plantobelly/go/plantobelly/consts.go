@@ -27,12 +27,10 @@ const (
 	ParamFunds           = "funds"
 	ParamId              = "id"
 	ParamLattitude       = "lattitude"
-	ParamLocation        = "location"
 	ParamLongitude       = "longitude"
 	ParamManufacturer    = "manufacturer"
 	ParamMintClaimId     = "mintClaimId"
 	ParamName            = "name"
-	ParamNewPlant        = "newPlant"
 	ParamNewState        = "newState"
 	ParamOracleId        = "oracleId"
 	ParamOwner           = "owner"
@@ -53,13 +51,32 @@ const (
 )
 
 const (
-	ResultClaim   = "claim"
-	ResultClaims  = "claims"
-	ResultIsOwner = "isOwner"
-	ResultOracles = "oracles"
-	ResultOwner   = "owner"
-	ResultPlant   = "plant"
-	ResultPlants  = "plants"
+	ResultActive             = "active"
+	ResultActiveReason       = "activeReason"
+	ResultClaimId            = "claimId"
+	ResultClaimed            = "claimed"
+	ResultClaimer            = "claimer"
+	ResultClaims             = "claims"
+	ResultCovered            = "covered"
+	ResultCurrentWater       = "currentWater"
+	ResultDeposit            = "deposit"
+	ResultDescription        = "description"
+	ResultFunds              = "funds"
+	ResultId                 = "id"
+	ResultIsOwner            = "isOwner"
+	ResultLattitude          = "lattitude"
+	ResultLongitude          = "longitude"
+	ResultManufacturer       = "manufacturer"
+	ResultName               = "name"
+	ResultOracles            = "oracles"
+	ResultOwner              = "owner"
+	ResultPlantId            = "plantId"
+	ResultPlants             = "plants"
+	ResultRecordedWaterLevel = "recordedWaterLevel"
+	ResultReward             = "reward"
+	ResultTimestamp          = "timestamp"
+	ResultWaterTarget        = "waterTarget"
+	ResultWaterThreshold     = "waterThreshold"
 )
 
 const (
@@ -83,7 +100,6 @@ const (
 	FuncEditOwnPlant           = "editOwnPlant"
 	FuncInit                   = "init"
 	FuncInterruptWeatherEvent  = "interruptWeatherEvent"
-	FuncMintPlant              = "mintPlant"
 	FuncMintPlantRaw           = "mintPlantRaw"
 	FuncPayClaimer             = "payClaimer"
 	FuncResolveClaim           = "resolveClaim"
@@ -110,7 +126,6 @@ const (
 	HFuncEditOwnPlant           = wasmtypes.ScHname(0xebba038d)
 	HFuncInit                   = wasmtypes.ScHname(0x1f44d644)
 	HFuncInterruptWeatherEvent  = wasmtypes.ScHname(0xc42865d1)
-	HFuncMintPlant              = wasmtypes.ScHname(0x6aeb84a1)
 	HFuncMintPlantRaw           = wasmtypes.ScHname(0x7b8d3bec)
 	HFuncPayClaimer             = wasmtypes.ScHname(0x2c37ad88)
 	HFuncResolveClaim           = wasmtypes.ScHname(0x302e03fa)

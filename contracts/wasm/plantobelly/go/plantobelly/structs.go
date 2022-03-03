@@ -74,59 +74,6 @@ func (o MutableClaim) Value() *Claim {
 	return NewClaimFromBytes(o.proxy.Get())
 }
 
-type Geolocation struct {
-	Lattitude string 
-	Longitude string 
-}
-
-func NewGeolocationFromBytes(buf []byte) *Geolocation {
-	dec := wasmtypes.NewWasmDecoder(buf)
-	data := &Geolocation{}
-	data.Lattitude = wasmtypes.StringDecode(dec)
-	data.Longitude = wasmtypes.StringDecode(dec)
-	dec.Close()
-	return data
-}
-
-func (o *Geolocation) Bytes() []byte {
-	enc := wasmtypes.NewWasmEncoder()
-		wasmtypes.StringEncode(enc, o.Lattitude)
-		wasmtypes.StringEncode(enc, o.Longitude)
-	return enc.Buf()
-}
-
-type ImmutableGeolocation struct {
-	proxy wasmtypes.Proxy
-}
-
-func (o ImmutableGeolocation) Exists() bool {
-	return o.proxy.Exists()
-}
-
-func (o ImmutableGeolocation) Value() *Geolocation {
-	return NewGeolocationFromBytes(o.proxy.Get())
-}
-
-type MutableGeolocation struct {
-	proxy wasmtypes.Proxy
-}
-
-func (o MutableGeolocation) Delete() {
-	o.proxy.Delete()
-}
-
-func (o MutableGeolocation) Exists() bool {
-	return o.proxy.Exists()
-}
-
-func (o MutableGeolocation) SetValue(value *Geolocation) {
-	o.proxy.Set(value.Bytes())
-}
-
-func (o MutableGeolocation) Value() *Geolocation {
-	return NewGeolocationFromBytes(o.proxy.Get())
-}
-
 type Plant struct {
 	Active         bool 
 	ActiveReason   uint32  // 0 -> default, 1 -> owner deactivated, 2 -> weather deactivated, 3 -> owner deactivated

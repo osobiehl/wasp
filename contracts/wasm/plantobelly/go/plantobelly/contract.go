@@ -49,11 +49,6 @@ type InterruptWeatherEventCall struct {
 	Params  MutableInterruptWeatherEventParams
 }
 
-type MintPlantCall struct {
-	Func    *wasmlib.ScFunc
-	Params  MutableMintPlantParams
-}
-
 type MintPlantRawCall struct {
 	Func    *wasmlib.ScFunc
 	Params  MutableMintPlantRawParams
@@ -181,12 +176,6 @@ func (sc Funcs) Init(ctx wasmlib.ScFuncCallContext) *InitCall {
 
 func (sc Funcs) InterruptWeatherEvent(ctx wasmlib.ScFuncCallContext) *InterruptWeatherEventCall {
 	f := &InterruptWeatherEventCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncInterruptWeatherEvent)}
-	f.Params.proxy = wasmlib.NewCallParamsProxy(&f.Func.ScView)
-	return f
-}
-
-func (sc Funcs) MintPlant(ctx wasmlib.ScFuncCallContext) *MintPlantCall {
-	f := &MintPlantCall{Func: wasmlib.NewScFunc(ctx, HScName, HFuncMintPlant)}
 	f.Params.proxy = wasmlib.NewCallParamsProxy(&f.Func.ScView)
 	return f
 }

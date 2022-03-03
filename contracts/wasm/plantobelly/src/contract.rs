@@ -50,11 +50,6 @@ pub struct InterruptWeatherEventCall {
 	pub params: MutableInterruptWeatherEventParams,
 }
 
-pub struct MintPlantCall {
-	pub func: ScFunc,
-	pub params: MutableMintPlantParams,
-}
-
 pub struct MintPlantRawCall {
 	pub func: ScFunc,
 	pub params: MutableMintPlantRawParams,
@@ -205,15 +200,6 @@ impl ScFuncs {
         let mut f = InterruptWeatherEventCall {
             func: ScFunc::new(HSC_NAME, HFUNC_INTERRUPT_WEATHER_EVENT),
             params: MutableInterruptWeatherEventParams { proxy: Proxy::nil() },
-        };
-        ScFunc::link_params(&mut f.params.proxy, &f.func);
-        f
-    }
-
-    pub fn mint_plant(_ctx: &dyn ScFuncCallContext) -> MintPlantCall {
-        let mut f = MintPlantCall {
-            func: ScFunc::new(HSC_NAME, HFUNC_MINT_PLANT),
-            params: MutableMintPlantParams { proxy: Proxy::nil() },
         };
         ScFunc::link_params(&mut f.params.proxy, &f.func);
         f

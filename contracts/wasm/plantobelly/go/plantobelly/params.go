@@ -125,8 +125,12 @@ func (s ImmutableEditOwnPlantParams) Description() wasmtypes.ScImmutableString {
 	return wasmtypes.NewScImmutableString(s.proxy.Root(ParamDescription))
 }
 
-func (s ImmutableEditOwnPlantParams) Location() ImmutableGeolocation {
-	return ImmutableGeolocation{proxy: s.proxy.Root(ParamLocation)}
+func (s ImmutableEditOwnPlantParams) Lattitude() wasmtypes.ScImmutableString {
+	return wasmtypes.NewScImmutableString(s.proxy.Root(ParamLattitude))
+}
+
+func (s ImmutableEditOwnPlantParams) Longitude() wasmtypes.ScImmutableString {
+	return wasmtypes.NewScImmutableString(s.proxy.Root(ParamLongitude))
 }
 
 func (s ImmutableEditOwnPlantParams) Name() wasmtypes.ScImmutableString {
@@ -153,8 +157,12 @@ func (s MutableEditOwnPlantParams) Description() wasmtypes.ScMutableString {
 	return wasmtypes.NewScMutableString(s.proxy.Root(ParamDescription))
 }
 
-func (s MutableEditOwnPlantParams) Location() MutableGeolocation {
-	return MutableGeolocation{proxy: s.proxy.Root(ParamLocation)}
+func (s MutableEditOwnPlantParams) Lattitude() wasmtypes.ScMutableString {
+	return wasmtypes.NewScMutableString(s.proxy.Root(ParamLattitude))
+}
+
+func (s MutableEditOwnPlantParams) Longitude() wasmtypes.ScMutableString {
+	return wasmtypes.NewScMutableString(s.proxy.Root(ParamLongitude))
 }
 
 func (s MutableEditOwnPlantParams) Name() wasmtypes.ScMutableString {
@@ -207,22 +215,6 @@ func (s MutableInterruptWeatherEventParams) Duration() wasmtypes.ScMutableUint64
 
 func (s MutableInterruptWeatherEventParams) PlantId() wasmtypes.ScMutableHash {
 	return wasmtypes.NewScMutableHash(s.proxy.Root(ParamPlantId))
-}
-
-type ImmutableMintPlantParams struct {
-	proxy wasmtypes.Proxy
-}
-
-func (s ImmutableMintPlantParams) NewPlant() ImmutablePlant {
-	return ImmutablePlant{proxy: s.proxy.Root(ParamNewPlant)}
-}
-
-type MutableMintPlantParams struct {
-	proxy wasmtypes.Proxy
-}
-
-func (s MutableMintPlantParams) NewPlant() MutablePlant {
-	return MutablePlant{proxy: s.proxy.Root(ParamNewPlant)}
 }
 
 type ImmutableMintPlantRawParams struct {
@@ -477,16 +469,16 @@ type ImmutableGetClaimParams struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s ImmutableGetClaimParams) ReqClaimId() ImmutableClaim {
-	return ImmutableClaim{proxy: s.proxy.Root(ParamReqClaimId)}
+func (s ImmutableGetClaimParams) ReqClaimId() wasmtypes.ScImmutableHash {
+	return wasmtypes.NewScImmutableHash(s.proxy.Root(ParamReqClaimId))
 }
 
 type MutableGetClaimParams struct {
 	proxy wasmtypes.Proxy
 }
 
-func (s MutableGetClaimParams) ReqClaimId() MutableClaim {
-	return MutableClaim{proxy: s.proxy.Root(ParamReqClaimId)}
+func (s MutableGetClaimParams) ReqClaimId() wasmtypes.ScMutableHash {
+	return wasmtypes.NewScMutableHash(s.proxy.Root(ParamReqClaimId))
 }
 
 type ImmutableGetPlantParams struct {

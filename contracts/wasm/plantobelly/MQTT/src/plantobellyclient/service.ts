@@ -154,9 +154,9 @@ export class EditOwnPlantFunc extends wasmclient.ClientFunc {
 		this.args.set(ArgDescription, this.args.fromString(v));
 	}
 	
-	// public location(v: ): void {
-	// 	this.args.set(ArgLocation, this.args.fromGeolocation(v));
-	// }
+	public location(v: ): void {
+		this.args.set(ArgLocation, this.args.fromGeolocation(v));
+	}
 	
 	public name(v: string): void {
 		this.args.set(ArgName, this.args.fromString(v));
@@ -219,9 +219,9 @@ export class InterruptWeatherEventFunc extends wasmclient.ClientFunc {
 export class MintPlantFunc extends wasmclient.ClientFunc {
 	private args: wasmclient.Arguments = new wasmclient.Arguments();
 	
-	// public newPlant(v: ): void {
-	// 	this.args.set(ArgNewPlant, this.args.fromPlant(v));
-	// }
+	public newPlant(v: ): void {
+		this.args.set(ArgNewPlant, this.args.fromPlant(v));
+	}
 	
 	public async post(): Promise<wasmclient.RequestID> {
 		return await super.post(0x6aeb84a1, this.args);

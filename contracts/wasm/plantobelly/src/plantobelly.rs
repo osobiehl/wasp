@@ -268,16 +268,16 @@ fn mint_plant_internal(ctx: &ScFuncContext, state: &MutableplantobellyState, mut
 
 }
 
-pub fn func_mint_plant(ctx: &ScFuncContext, f: &MintPlantContext) {
-    let mut p = f.params.new_plant().value();
-    let funds = p.funds;
-    let owner = p.owner.clone();
-    let id = p.id.clone();
+// pub fn func_mint_plant(ctx: &ScFuncContext, f: &MintPlantContext) {
+//     let mut p = f.params.new_plant().value();
+//     let funds = p.funds;
+//     let owner = p.owner.clone();
+//     let id = p.id.clone();
 
-   mint_plant_internal(ctx, &f.state, p);
-    f .events.mint(funds, &owner, &id);
+//    mint_plant_internal(ctx, &f.state, p);
+//     f .events.mint(funds, &owner, &id);
 
-}
+// }
 
 pub fn func_mint_plant_raw(ctx: &ScFuncContext, f: &MintPlantRawContext) {
     let F = &f.params;
@@ -401,7 +401,24 @@ pub fn view_get_plant(ctx: &ScViewContext, f: &GetPlantContext) {
     if let None = plant{
         ctx.panic("plant not found!");
     }
-    let plant = plant.unwrap();
+    let F = plant.unwrap();
+    f.results.description().set_value( &F.description);
+    f.results.manufacturer().set_value(&F.manufacturer);
+    owner: F.owner().value(),
+    water_target: F.water_target().value(),
+    water_threshold: F.water_threshold().value(),
+    current_water: F.current_water().value(),
+    id: F.id().value(),
+    funds: F.funds().value(),
+    lattitude: F.lattitude().value(),
+    longitude: F.longitude().value(),
+    name: F.name().value(),
+    reward: F.pay_reward().value(),
+    covered: F.covered().value(),
+    claimed: F.claimed().value(),
+    claim_id: F.mint_claim_id().value(),
+    active: F.active().value(),
+    active_reason: F.active_reason().value()
     f.results.plant().set_value(&plant)
 
 
